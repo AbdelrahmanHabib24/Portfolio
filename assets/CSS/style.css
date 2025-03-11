@@ -755,13 +755,20 @@ main {
 }
 
 .service-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 100%); /* Two columns with 50% width */
+    gap: 2rem; /* Add space between the columns */
+    padding: 2rem 20% ;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 2rem;
-    padding: 2rem 8%;
 }
+
+@media (min-width: 768px) {
+    .service-container {
+        grid-template-columns: repeat(4, 33.33%); /* On larger screens, 3 columns with equal width */
+    }
+}
+
 
 .services-box {
     flex: 1 5 16rem;
@@ -770,13 +777,14 @@ main {
     align-items: center;
     justify-content: center;
     background-color: var(---main-work);
-    padding: 2rem 1rem 4rem;
-    height: auto;
+    padding: 2rem 2rem 4rem;
+    height: 100%;
     border-radius: 1.25rem;
     border: 3px solid var(---main-color);
     cursor: pointer;
     transition: .3s ease-in-out;
     overflow: hidden;
+    gap: 10px ;
 }
 .services-box img{
     width: 100%;
