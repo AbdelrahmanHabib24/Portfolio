@@ -753,21 +753,30 @@ main {
     justify-content: center;
     padding: 2rem 0 0 0;
 }
-
+/* Default: For small screens (mobile-first approach), 1 column */
 .service-container {
     display: grid;
-    grid-template-columns: repeat(3, 100%); /* Two columns with 50% width */
-    gap: 2rem; /* Add space between the columns */
-    padding: 2rem 20% ;
+    grid-template-columns: 1fr; /* 1 column for small screens */
+    gap: 2rem; /* Space between the columns */
+    padding: 2rem 10%; /* Adjust padding as necessary */
     align-items: center;
     justify-content: center;
 }
 
-@media (min-width: 768px) {
+/* Medium screens (tablets), 3 columns */
+@media (min-width: 640px) {
     .service-container {
-        grid-template-columns: repeat(4, 33.33%); /* On larger screens, 3 columns with equal width */
+        grid-template-columns: repeat(3, 1fr); /* 3 equal-width columns for medium screens */
     }
 }
+
+/* Large screens (desktops), 4 columns */
+@media (min-width: 768px) {
+    .service-container {
+        grid-template-columns: repeat(4, 1fr); /* 4 equal-width columns for larger screens */
+    }
+}
+
 
 
 .services-box {
