@@ -17,9 +17,9 @@ var typeData = new Typed(".role", {
   };
   
   function contact() {
-    window.location.href = "https://wa.me/01023289634/";
-  };
-  
+  window.location.href = "https://wa.me/201023289634";
+}
+
   
   const form = document.querySelector(".main-contact-form");
   const fullName = document.getElementById("input-name");
