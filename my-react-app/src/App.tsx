@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence , easeInOut } from "framer-motion";
+import { motion, AnimatePresence, easeInOut } from "framer-motion";
 import programmingAnimation from "../Programming.json"; // غيّر المسار حسب مكان الملف
 import Lottie from "lottie-react";
 import {
@@ -208,18 +208,8 @@ function App() {
     },
   };
 
-  const overlayVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { duration: 0.3, ease: easeInOut },
-    },
-  };
-
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
-
-
       {/* Navigation */}
       <motion.nav
         className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-lg shadow-sm z-50"
@@ -239,7 +229,6 @@ function App() {
                 Abdelrahman Habib{" "}
               </span>
             </motion.div>
-
             {/* Desktop Navigation */}
             <div className="hidden md:block">
               <motion.div
@@ -275,7 +264,6 @@ function App() {
                 ))}
               </motion.div>
             </div>
-
             {/* Mobile menu button */}
             <motion.div
               className="md:hidden"
@@ -309,24 +297,21 @@ function App() {
                   return (
                     <motion.button
                       key={item.id}
-                      onClick={() => scrollToSection(item.id)}
+                      onClick={() => {
+                        scrollToSection(item.id); // التأكد من استدعاء الدالة
+                        setIsMenuOpen(false); // إغلاق القائمة بعد الضغط
+                      }}
                       className={`flex items-center w-full px-4 py-2 rounded-lg text-base font-medium transition-all duration-300 ${
                         activeSection === item.id
                           ? "bg-cyan-500 text-white"
                           : "text-gray-700 hover:text-cyan-600 hover:bg-cyan-50"
                       }`}
-                      variants={itemVariants}
                       whileHover={{
                         scale: 1.02,
                         boxShadow: "0 5px 15px rgba(0, 82, 219, 0.3)",
                       }}
-                      whileTap={{ scale: 0.98 }}
-                      animate={{ scale: [1, 1.02, 1] }}
-                      transition={{
-                        duration: 1.5,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
+                      whileTap={{ scale: 0.98 }} // تبسيط التأثير عند الضغط
+                      transition={{ duration: 0.3 }} // تحديد انتقال منفصل للتفاعل
                     >
                       <Icon size={20} className="mr-2" />
                       {item.label}
@@ -701,8 +686,8 @@ function App() {
                   animate={{ scale: [1, 1.02, 1] }}
                   transition={{
                     duration: 1.5,
+                    ease: easeInOut,
                     repeat: Infinity,
-                    ease: "easeInOut",
                     delay: index * 0.1,
                   }}
                   style={{ animationDelay: `${index * 150}ms` }}
@@ -715,7 +700,7 @@ function App() {
                     />
                     <motion.div
                       className="absolute inset-0 bg-black/50 flex items-center justify-center space-x-4 opacity-0 group-hover:opacity-100"
-                      variants={overlayVariants}
+                      variants={itemVariants}
                       initial="hidden"
                       whileHover="visible"
                     >
@@ -723,7 +708,7 @@ function App() {
                         href={project.liveUrl}
                         className="p-3 bg-cyan-500 text-white rounded-full hover:bg-cyan-600 transition-all duration-300"
                         whileHover={{ scale: 1.1, rotate: 5 }}
-                        whileTap={{ scale: 0.9 }}
+                        whileTap={{ scale: 0.9, rotate: 5 }} // دمج التأثيرات في كائن واحد
                       >
                         <ExternalLink size={20} />
                       </motion.a>
@@ -731,7 +716,7 @@ function App() {
                         href={project.githubUrl}
                         className="p-3 bg-gray-800 text-white rounded-full hover:bg-gray-900 transition-all duration-300"
                         whileHover={{ scale: 1.1, rotate: 5 }}
-                        whileTap={{ scale: 0.9 }}
+                        whileTap={{ scale: 0.9, rotate: 5 }} // دمج التأثيرات في كائن واحد
                       >
                         <Github size={20} />
                       </motion.a>
@@ -751,6 +736,7 @@ function App() {
                         <motion.span
                           key={tech}
                           className="px-3 py-1 bg-cyan-100 text-cyan-800 text-xs rounded-full"
+                          variants={itemVariants}
                           initial={{ opacity: 0, scale: 0.8 }}
                           animate={{ opacity: 1, scale: 1 }}
                           transition={{ duration: 0.3 }}
@@ -766,7 +752,6 @@ function App() {
           </motion.div>
         </div>
       </motion.section>
-
       {/* Experience Section */}
       <motion.section
         id="experience"
