@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence , easeInOut } from "framer-motion";
 import programmingAnimation from "../Programming.json"; // غيّر المسار حسب مكان الملف
 import Lottie from "lottie-react";
 import {
@@ -184,7 +184,7 @@ function App() {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: "easeOut",
+        ease: easeInOut,
         staggerChildren: 0.2,
       },
     },
@@ -195,7 +195,7 @@ function App() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
+      transition: { duration: 0.5, ease: easeInOut },
     },
   };
 
@@ -204,7 +204,7 @@ function App() {
     visible: {
       opacity: 1,
       height: "auto",
-      transition: { duration: 0.3, ease: "easeInOut" },
+      transition: { duration: 0.3, ease: easeInOut },
     },
   };
 
@@ -212,20 +212,13 @@ function App() {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { duration: 0.3, ease: "easeInOut" },
+      transition: { duration: 0.3, ease: easeInOut },
     },
   };
 
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
-      <style jsx global>{`
-        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
-        body {
-          font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
-            Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
-            sans-serif;
-        }
-      `}</style>
+
 
       {/* Navigation */}
       <motion.nav
