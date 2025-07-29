@@ -298,8 +298,8 @@ function App() {
                     <motion.button
                       key={item.id}
                       onClick={() => {
-                        scrollToSection(item.id); // التأكد من استدعاء الدالة
-                        setIsMenuOpen(false); // إغلاق القائمة بعد الضغط
+                        scrollToSection(item.id); 
+                        setIsMenuOpen(false); 
                       }}
                       className={`flex items-center w-full px-4 py-2 rounded-lg text-base font-medium transition-all duration-300 ${
                         activeSection === item.id
@@ -310,8 +310,8 @@ function App() {
                         scale: 1.02,
                         boxShadow: "0 5px 15px rgba(0, 82, 219, 0.3)",
                       }}
-                      whileTap={{ scale: 0.98 }} // تبسيط التأثير عند الضغط
-                      transition={{ duration: 0.3 }} // تحديد انتقال منفصل للتفاعل
+                      whileTap={{ scale: 0.98 }} 
+                      transition={{ duration: 0.3 }} 
                     >
                       <Icon size={20} className="mr-2" />
                       {item.label}
@@ -708,7 +708,7 @@ function App() {
                         href={project.liveUrl}
                         className="p-3 bg-cyan-500 text-white rounded-full hover:bg-cyan-600 transition-all duration-300"
                         whileHover={{ scale: 1.1, rotate: 5 }}
-                        whileTap={{ scale: 0.9, rotate: 5 }} // دمج التأثيرات في كائن واحد
+                        whileTap={{ scale: 0.9, rotate: 5 }} 
                       >
                         <ExternalLink size={20} />
                       </motion.a>
@@ -716,7 +716,7 @@ function App() {
                         href={project.githubUrl}
                         className="p-3 bg-gray-800 text-white rounded-full hover:bg-gray-900 transition-all duration-300"
                         whileHover={{ scale: 1.1, rotate: 5 }}
-                        whileTap={{ scale: 0.9, rotate: 5 }} // دمج التأثيرات في كائن واحد
+                        whileTap={{ scale: 0.9, rotate: 5 }} 
                       >
                         <Github size={20} />
                       </motion.a>
