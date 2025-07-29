@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, easeInOut } from "framer-motion";
-import programmingAnimation from "../Programming.json"; // غيّر المسار حسب مكان الملف
+import programmingAnimation from "../Programming.json"; 
 import Lottie from "lottie-react";
 import {
   Menu,
