@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, easeInOut } from "framer-motion";
-import programmingAnimation from "../Programming.json"; 
+import programmingAnimation from "../Programming.json";
 import Lottie from "lottie-react";
 import {
   Menu,
@@ -34,7 +34,7 @@ import {
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
   // Active section tracking
   useEffect(() => {
     const handleScroll = () => {
@@ -298,8 +298,8 @@ function App() {
                     <motion.button
                       key={item.id}
                       onClick={() => {
-                        scrollToSection(item.id); 
-                        setIsMenuOpen(false); 
+                        scrollToSection(item.id);
+                        setIsMenuOpen(false);
                       }}
                       className={`flex items-center w-full px-4 py-2 rounded-lg text-base font-medium transition-all duration-300 ${
                         activeSection === item.id
@@ -310,8 +310,8 @@ function App() {
                         scale: 1.02,
                         boxShadow: "0 5px 15px rgba(0, 82, 219, 0.3)",
                       }}
-                      whileTap={{ scale: 0.98 }} 
-                      transition={{ duration: 0.3 }} 
+                      whileTap={{ scale: 0.98 }}
+                      transition={{ duration: 0.3 }}
                     >
                       <Icon size={20} className="mr-2" />
                       {item.label}
@@ -691,6 +691,11 @@ function App() {
                     delay: index * 0.1,
                   }}
                   style={{ animationDelay: `${index * 150}ms` }}
+                  onClick={() =>
+                    window.innerWidth < 1024
+                      ? setActiveIndex(activeIndex === index ? null : index)
+                      : null
+                  }
                 >
                   <div className="relative">
                     <img
@@ -699,16 +704,18 @@ function App() {
                       className="w-full h-auto object-contain transition-all duration-300 group-hover:blur-sm"
                     />
                     <motion.div
-                      className="absolute inset-0 bg-black/50 flex items-center justify-center space-x-4 opacity-0 group-hover:opacity-100"
-                      variants={itemVariants}
-                      initial="hidden"
-                      whileHover="visible"
+                      className={`
+          absolute inset-0 bg-black/50 flex items-center justify-center space-x-4
+          transition-opacity duration-300
+          ${activeIndex === index ? "opacity-100" : "opacity-0"}
+          lg:opacity-0 group-hover:lg:opacity-100
+        `}
                     >
                       <motion.a
                         href={project.liveUrl}
                         className="p-3 bg-cyan-500 text-white rounded-full hover:bg-cyan-600 transition-all duration-300"
                         whileHover={{ scale: 1.1, rotate: 5 }}
-                        whileTap={{ scale: 0.9, rotate: 5 }} 
+                        whileTap={{ scale: 0.9, rotate: 5 }}
                       >
                         <ExternalLink size={20} />
                       </motion.a>
@@ -716,7 +723,7 @@ function App() {
                         href={project.githubUrl}
                         className="p-3 bg-gray-800 text-white rounded-full hover:bg-gray-900 transition-all duration-300"
                         whileHover={{ scale: 1.1, rotate: 5 }}
-                        whileTap={{ scale: 0.9, rotate: 5 }} 
+                        whileTap={{ scale: 0.9, rotate: 5 }}
                       >
                         <Github size={20} />
                       </motion.a>
@@ -730,7 +737,6 @@ function App() {
                     <p className="text-gray-600 mb-4 leading-relaxed text-sm line-clamp-2">
                       {project.description}
                     </p>
-
                     <div className="flex flex-wrap gap-2 mb-4">
                       {project.technologies.map((tech) => (
                         <motion.span
@@ -752,6 +758,7 @@ function App() {
           </motion.div>
         </div>
       </motion.section>
+
       {/* Experience Section */}
       <motion.section
         id="experience"
