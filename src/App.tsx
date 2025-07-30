@@ -158,15 +158,6 @@ function App() {
     },
     {
       type: "InternShip",
-      title: "SoftWare Development Fundamentals",
-      company: "Information Technology Institute (ITI)",
-      period: "Nov 2023 - Feb 2024",
-      description:
-        "Developed programming skills in C, C++, and web technologies, building responsive UIs and web applications using HTML, CSS, JavaScript, PHP, and MySQL, while also designing flowcharts and customizing WordPress sites Full Stack.",
-      icon: GraduationCap,
-    },
-    {
-      type: "InternShip",
       title: "Web Development Using Python ",
       company: "Information Technology Institute (ITI)",
       period: "May 2024 - Sep 2024",
@@ -174,6 +165,16 @@ function App() {
         " Designed user interfaces with HTML, CSS, JavaScript, and React, while developing secure APIs and web applications using Django and Django REST Framework, emphasizing clean, documented code and API integration",
       icon: GraduationCap,
     },
+    {
+      type: "InternShip",
+      title: "SoftWare Development Fundamentals",
+      company: "Information Technology Institute (ITI)",
+      period: "Nov 2023 - Feb 2024",
+      description:
+        "Developed programming skills in C, C++, and web technologies, building responsive UIs and web applications using HTML, CSS, JavaScript, PHP, and MySQL, while also designing flowcharts and customizing WordPress sites Full Stack.",
+      icon: GraduationCap,
+    },
+    
   ];
 
   // Animation variants
