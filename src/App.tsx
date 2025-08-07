@@ -151,7 +151,7 @@ function App() {
       type: "work",
       title: "Front End Developer",
       company: "Eyego",
-      period: "Sep 2024 - Present",
+      period: "May 2025 - Present",
       description:
         "Led frontend development for an AI-based real-time people tracking system using Next.js, Redux, and WebSockets ,Integrated AI models for live location tracking, people classification, and step estimation.",
       icon: Briefcase,
@@ -174,7 +174,6 @@ function App() {
         "Developed programming skills in C, C++, and web technologies, building responsive UIs and web applications using HTML, CSS, JavaScript, PHP, and MySQL, while also designing flowcharts and customizing WordPress sites Full Stack.",
       icon: GraduationCap,
     },
-    
   ];
 
   // Animation variants
@@ -554,7 +553,6 @@ function App() {
                     }}
                   >
                     <Calendar className="text-blue-500 mb-2" size={24} />
-                    <h4 className="font-semibold text-gray-900">1+ Years</h4>
                     <p className="text-sm text-gray-600">Experience</p>
                   </motion.div>
                 </motion.div>
