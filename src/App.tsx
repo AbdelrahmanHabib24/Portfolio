@@ -539,23 +539,6 @@ function App() {
                       Delivered successfully
                     </p>
                   </motion.div>
-                  <motion.div
-                    className="p-4 bg-gray-50 rounded-lg shadow-sm"
-                    variants={itemVariants}
-                    whileHover={{
-                      scale: 1.05,
-                      boxShadow: "0 5px 15px rgba(0, 82, 219, 0.3)",
-                    }}
-                    animate={{ scale: [1, 1.02, 1] }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  >
-                    <Calendar className="text-blue-500 mb-2" size={24} />
-                    <p className="text-sm text-gray-600">Experience</p>
-                  </motion.div>
                 </motion.div>
               </motion.div>
             </motion.div>
