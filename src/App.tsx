@@ -498,14 +498,15 @@ function App() {
                   Front End Developer
                 </h3>
                 <p className="text-gray-600 mb-6 leading-relaxed text-lg">
-                  I'm a Frontend Developer with 1 year of hands-on experience
-                  building modern, responsive web applications using
+                  I'm a Frontend Developer who started with a hands-on
+                  internship, building modern, responsive web applications using
                   technologies like React, Next.js, and Tailwind CSS. I focus on
                   creating user-friendly interfaces that combine performance,
-                  accessibility, and clean design. Over the past year, I've
-                  delivered real-world projects including interactive
-                  dashboards, voice-enabled UIs, and dynamic spatial editors
-                  using tools like Framer Motion, Konva, and LiveKit
+                  accessibility, and clean design. During my time in training
+                  and personal projects, I've delivered real-world applications
+                  including interactive dashboards, voice-enabled UIs, and
+                  dynamic spatial editors using tools like Framer Motion, Konva,
+                  and LiveKit.
                 </p>
                 <p className="text-gray-600 mb-8 leading-relaxed text-lg">
                   I'm passionate about frontend architecture, animations, and
