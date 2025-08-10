@@ -33,7 +33,6 @@ import {
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
   // Active section tracking
   useEffect(() => {
     const handleScroll = () => {
@@ -198,41 +197,41 @@ function App() {
     },
   };
 
-  const navVariants = {
-    hidden: { opacity: 0, height: 0 },
-    visible: {
-      opacity: 1,
-      height: "auto",
-      transition: { duration: 0.3, ease: easeInOut },
-    },
-  };
-
   return (
-    <div className="min-h-screen bg-gray-50 font-sans">
+    <div className="min-h-screen overflow-x-hidden bg-gray-50 font-sans">
       {/* Navigation */}
       <motion.nav
         className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-lg shadow-sm z-50"
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
+            {/* Logo */}
             <motion.div
-              className="flex-shrink-0"
-              initial={{ opacity: 0, x: -20 }}
+              className="flex-shrink-0 cursor-pointer"
+              initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.2, type: "spring" }}
+              whileHover={{ scale: 1.05 }}
             >
               <span className="text-2xl font-bold bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">
-                Abdelrahman Habib{" "}
+                Abdelrahman Habib
               </span>
             </motion.div>
+
             {/* Desktop Navigation */}
             <div className="hidden md:block">
               <motion.div
                 className="ml-10 flex items-baseline space-x-4"
-                variants={containerVariants}
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: { staggerChildren: 0.1 },
+                  },
+                }}
                 initial="hidden"
                 animate="visible"
               >
@@ -240,35 +239,40 @@ function App() {
                   <motion.button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                    className={`px-4 py-2 rounded-lg text-sm font-medium relative overflow-hidden group ${
                       activeSection === item.id
                         ? "bg-cyan-500 text-white shadow-md"
-                        : "text-gray-700 hover:text-cyan-600 hover:bg-cyan-50"
+                        : "text-gray-700"
                     }`}
-                    variants={itemVariants}
+                    variants={{
+                      hidden: { opacity: 0, y: -10 },
+                      visible: { opacity: 1, y: 0 },
+                    }}
                     whileHover={{
-                      scale: 1.05,
+                      scale: 1.07,
                       boxShadow: "0 5px 15px rgba(0, 82, 219, 0.3)",
                     }}
-                    whileTap={{ scale: 0.95 }}
-                    animate={{ scale: [1, 1.02, 1] }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
+                    whileTap={{ scale: 0.96 }}
                   >
-                    {item.label}
+                    <span className="relative z-10">{item.label}</span>
+                    {/* Hover background animation */}
+                    <motion.span
+                      className="absolute inset-0 bg-cyan-500/10 rounded-lg"
+                      initial={{ scaleX: 0 }}
+                      whileHover={{ scaleX: 1 }}
+                      transition={{ duration: 0.3 }}
+                    />
                   </motion.button>
                 ))}
               </motion.div>
             </div>
+
             {/* Mobile menu button */}
             <motion.div
               className="md:hidden"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -284,11 +288,11 @@ function App() {
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
-              className="md:hidden bg-white shadow-lg"
-              variants={navVariants}
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
+              className="md:hidden bg-white shadow-lg origin-top"
+              initial={{ scaleY: 0, opacity: 0 }}
+              animate={{ scaleY: 1, opacity: 1 }}
+              exit={{ scaleY: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
             >
               <div className="px-2 pt-2 pb-3 space-y-1">
                 {navItems.map((item) => {
@@ -300,17 +304,16 @@ function App() {
                         scrollToSection(item.id);
                         setIsMenuOpen(false);
                       }}
-                      className={`flex items-center w-full px-4 py-2 rounded-lg text-base font-medium transition-all duration-300 ${
+                      className={`flex items-center w-full px-4 py-2 rounded-lg text-base font-medium ${
                         activeSection === item.id
                           ? "bg-cyan-500 text-white"
                           : "text-gray-700 hover:text-cyan-600 hover:bg-cyan-50"
                       }`}
                       whileHover={{
-                        scale: 1.02,
+                        scale: 1.03,
                         boxShadow: "0 5px 15px rgba(0, 82, 219, 0.3)",
                       }}
                       whileTap={{ scale: 0.98 }}
-                      transition={{ duration: 0.3 }}
                     >
                       <Icon size={20} className="mr-2" />
                       {item.label}
@@ -326,218 +329,262 @@ function App() {
       {/* Hero Section */}
       <motion.section
         id="home"
-        className="min-h-screen flex items-center justify-center pt-20 bg-gradient-to-br from-gray-50 to-cyan-50"
-        variants={containerVariants}
+        className="relative min-h-screen flex items-center justify-center pt-20 bg-gradient-to-br from-gray-50 to-cyan-50 overflow-hidden"
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.3 }}
+        variants={{
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.15 },
+          },
+        }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div variants={containerVariants}>
-            <motion.div className="mb-8" variants={itemVariants}>
-              <div className="relative w-52 h-52 mx-auto mb-6 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 p-1 shadow-lg">
-                <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
-                  <img
-                    src="/WhatsApp Image 2024-08-06 at 18.25.11_b368635e.jpg"
-                    alt="Profile"
-                    className="absolute w-48 h-48 object-fill rounded-full"
-                  />
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.h1
-              className="text-5xl md:text-7xl font-bold text-gray-900 mb-6"
-              variants={itemVariants}
-            >
-              Hi,I'm{" "}
-              <span className="bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">
-                Abdelrahman Habib
-              </span>
-            </motion.h1>
-
-            <motion.p
-              className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed"
-              variants={itemVariants}
-            >
-              A Frontend Developer building sleek, responsive, and
-              high-performing web interfaces with modern technologies.
-            </motion.p>
-
-            <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
-              variants={containerVariants}
-            >
-              <motion.button
-                onClick={() => scrollToSection("projects")}
-                className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full font-medium shadow-md hover:shadow-lg transition-all duration-300"
-                variants={itemVariants}
-                whileHover={{
-                  scale: 1.05,
-                  boxShadow: "0 5px 15px rgba(0, 82, 219, 0.3)",
-                }}
-                whileTap={{ scale: 0.95 }}
-                animate={{ scale: [1, 1.02, 1] }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              >
-                Explore My Work
-              </motion.button>
-              <motion.button
-                onClick={() => scrollToSection("contact")}
-                className="px-8 py-3 border-2 border-cyan-500 text-cyan-600 rounded-full font-medium hover:bg-cyan-50 transition-all duration-300"
-                variants={itemVariants}
-                whileHover={{
-                  scale: 1.05,
-                  boxShadow: "0 5px 15px rgba(0, 82, 219, 0.2)",
-                }}
-                whileTap={{ scale: 0.95 }}
-                animate={{ scale: [1, 1.02, 1] }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              >
-                Let's Connect
-              </motion.button>
-            </motion.div>
-
-            <motion.div
-              className="flex justify-center space-x-6"
-              variants={containerVariants}
-            >
-              <motion.a
-                href="https://github.com/AbdelrahmanHabib24"
-                className="p-3 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-300"
-                variants={itemVariants}
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                animate={{ rotate: [0, 360] }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              >
-                <Github
-                  size={24}
-                  className="text-gray-700 hover:text-cyan-600"
-                />
-              </motion.a>
-              <motion.a
-                href="https://www.linkedin.com/in/abdelrahmanhabib23/"
-                className="p-3 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-300"
-                variants={itemVariants}
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                animate={{ rotate: [0, 360] }}
-                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-              >
-                <Linkedin
-                  size={24}
-                  className="text-gray-700 hover:text-cyan-600"
-                />
-              </motion.a>
-              <motion.a
-                href="mailto:abdelrahmanhabib502@gmail.com"
-                className="p-3 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-300"
-                variants={itemVariants}
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                animate={{ rotate: [0, 360] }}
-                transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-              >
-                <Mail size={24} className="text-gray-700 hover:text-cyan-600" />
-              </motion.a>
-            </motion.div>
+          {/* Profile Image */}
+          <motion.div
+            className="relative w-52 h-52 mx-auto mb-8 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 p-1 shadow-lg"
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0 },
+            }}
+            animate={{ y: [0, -5, 0] }}
+            transition={{ duration: 4, ease: "easeInOut" }}
+          >
+            <div className="w-full h-full rounded-full bg-white flex items-center justify-center overflow-hidden">
+              <img
+                src="/WhatsApp Image 2024-08-06 at 18.25.11_b368635e.jpg"
+                alt="Profile"
+                className="w-48 h-48 object-fill rounded-full"
+              />
+            </div>
           </motion.div>
 
-          <motion.div
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-            animate={{ y: [0, -10, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
+          {/* Title */}
+          <motion.h1
+            className="text-5xl md:text-7xl font-bold text-gray-900 mb-6"
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0 },
+            }}
           >
-            <ChevronDown size={32} className="text-gray-500" />
+            Hi, I'm{" "}
+            <span className="bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent animate-gradient-x">
+              Abdelrahman Habib
+            </span>
+          </motion.h1>
+
+          {/* Subtitle */}
+          <motion.p
+            className="text-xl md:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed"
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0 },
+            }}
+          >
+            A Frontend Developer building sleek, responsive, and high-performing
+            web interfaces with modern technologies.
+          </motion.p>
+
+          {/* CTA Buttons */}
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0 },
+            }}
+          >
+            <motion.button
+              onClick={() => scrollToSection("projects")}
+              className="px-8 py-3 bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-600 text-white rounded-full font-medium shadow-md hover:shadow-xl hover:brightness-110 transition-all duration-300 relative overflow-hidden"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Explore My Work
+            </motion.button>
+
+            <motion.button
+              onClick={() => scrollToSection("contact")}
+              className="px-8 py-3 border-2 border-cyan-500 text-cyan-600 rounded-full font-medium hover:bg-cyan-50 hover:shadow-lg transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Let's Connect
+            </motion.button>
+          </motion.div>
+
+          {/* Social Links */}
+          <motion.div
+            className="flex justify-center space-x-6"
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 },
+            }}
+          >
+            {[
+              {
+                href: "https://github.com/AbdelrahmanHabib24",
+                icon: <Github size={24} />,
+              },
+              {
+                href: "https://www.linkedin.com/in/abdelrahmanhabib23/",
+                icon: <Linkedin size={24} />,
+              },
+              {
+                href: "mailto:abdelrahmanhabib502@gmail.com",
+                icon: <Mail size={24} />,
+              },
+            ].map((link, i) => (
+              <motion.a
+                key={i}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-300"
+                whileHover={{ scale: 1.15, rotate: 8 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                {link.icon}
+              </motion.a>
+            ))}
           </motion.div>
         </div>
+
+        {/* Scroll Down Icon */}
+        <motion.div
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          animate={{ y: [0, -10, 0] }}
+          transition={{ repeat: Infinity, duration: 1.5 }}
+        >
+          <ChevronDown size={32} className="text-gray-500" />
+        </motion.div>
       </motion.section>
 
       {/* About Section */}
       <motion.section
         id="about"
-        className="py-24 bg-white"
-        variants={containerVariants}
+        className="py-16 sm:py-20 lg:py-24 bg-white relative overflow-hidden"
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.3 }}
+        variants={{
+          hidden: { opacity: 0 },
+          visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
+        }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div variants={containerVariants}>
-            <motion.div className="text-center mb-16" variants={itemVariants}>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                About Me
-              </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                Discover my journey, skills, and passion for creating impactful
-                digital solutions.
-              </p>
+          {/* Section Title */}
+          <motion.div
+            className="text-center mb-12 sm:mb-16"
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0 },
+            }}
+          >
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              About Me
+            </h2>
+            <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+              Discover my journey, skills, and passion for creating impactful
+              digital solutions.
+            </p>
+          </motion.div>
+
+          {/* Content */}
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-center "
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.15 } },
+            }}
+          >
+            {/* Lottie Animation */}
+            <motion.div
+              className="flex justify-center items-center "
+              variants={{
+                hidden: { opacity: 0, x: -30 },
+                visible: { opacity: 1, x: 0 },
+              }}
+              animate={{ y: [0, -5, 0] }}
+              transition={{ duration: 4, ease: "easeInOut" }}
+            >
+              <Lottie
+                animationData={programmingAnimation}
+                loop={true}
+                className=" w-full h-auto"
+              />
             </motion.div>
 
+            {/* Text + Stats */}
             <motion.div
-              className="grid md:grid-cols-2 gap-12 items-center"
-              variants={containerVariants}
+              className="flex flex-col justify-center"
+              variants={{
+                hidden: { opacity: 0, x: 30 },
+                visible: { opacity: 1, x: 0 },
+              }}
             >
-              <motion.div variants={itemVariants}>
-                <Lottie
-                  animationData={programmingAnimation}
-                  loop={true}
-                  className="w-full h-full"
-                />
-              </motion.div>
+              <h3 className="text-xl sm:text-2xl flex justify-center sm:justify-start items-center font-bold text-gray-900 mb-5">
+                Front End Developer
+              </h3>
 
-              <motion.div variants={itemVariants}>
-                <h3 className="text-2xl font-bold text-gray-900 mb-5 ">
-                  Front End Developer
-                </h3>
-                <p className="text-gray-600 mb-6 leading-relaxed text-lg">
-                  I'm a Frontend Developer who started with a hands-on
-                  internship, building modern, responsive web applications using
-                  technologies like React, Next.js, and Tailwind CSS. I focus on
-                  creating user-friendly interfaces that combine performance,
-                  accessibility, and clean design. During my time in training
-                  and personal projects, I've delivered real-world applications
-                  including interactive dashboards, voice-enabled UIs, and
-                  dynamic spatial editors using tools like Framer Motion, Konva,
+              <ul className="list-disc pl-5 text-gray-600 mb-8 leading-relaxed text-base sm:text-lg sm:space-y-4">
+                <li>Building modern and responsive web applications.</li>
+                <li>
+                  Experienced in <strong>React</strong>,{" "}
+                  <strong>Next.js</strong>, and <strong>Tailwind CSS</strong>.
+                </li>
+                <li>
+                  Creating <strong>user-friendly interfaces</strong> with high
+                  performance and accessibility.
+                </li>
+                <li>
+                  Delivered real-world projects like{" "}
+                  <strong>interactive dashboards</strong> and voice-enabled UIs.
+                </li>
+                <li>
+                  Skilled in tools like <strong>Framer Motion</strong>, Konva,
                   and LiveKit.
-                </p>
-                <p className="text-gray-600 mb-8 leading-relaxed text-lg">
-                  I'm passionate about frontend architecture, animations, and
-                  enhancing developer experience through thoughtful UI patterns
-                  and scalable code. Outside of coding, I stay inspired by
-                  exploring new web technologies
-                </p>
+                </li>
+                <li>
+                  Passionate about <strong>frontend architecture</strong> and
+                  animations.
+                </li>
+                <li>
+                  Improving developer experience through{" "}
+                  <strong>scalable code</strong> and thoughtful UI patterns.
+                </li>
+                <li>
+                  Continuously exploring{" "}
+                  <strong>emerging web technologies</strong>.
+                </li>
+              </ul>
 
+              {/* Stats */}
+              <motion.div
+                className="grid grid-cols-2 gap-4"
+                variants={{
+                  hidden: {},
+                  visible: { transition: { staggerChildren: 0.1 } },
+                }}
+              >
                 <motion.div
-                  className="grid grid-cols-2 gap-4"
-                  variants={containerVariants}
+                  className="p-4 bg-gray-50 rounded-lg shadow-sm cursor-pointer"
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
+                  whileHover={{
+                    scale: 1.05,
+                    boxShadow: "0 8px 20px rgba(0, 82, 219, 0.25)",
+                  }}
+                  transition={{ duration: 0.3 }}
                 >
-                  <motion.div
-                    className="p-4 bg-gray-50 rounded-lg shadow-sm"
-                    variants={itemVariants}
-                    whileHover={{
-                      scale: 1.05,
-                      boxShadow: "0 5px 15px rgba(0, 82, 219, 0.3)",
-                    }}
-                    animate={{ scale: [1, 1.02, 1] }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  >
-                    <Award className="text-cyan-500 mb-2" size={24} />
-                    <h4 className="font-semibold text-gray-900">5+ Projects</h4>
-                    <p className="text-sm text-gray-600">
-                      Delivered successfully
-                    </p>
-                  </motion.div>
+                  <Award className="text-cyan-500 mb-2" size={24} />
+                  <h4 className="font-semibold text-gray-900">5+ Projects</h4>
+                  <p className="text-sm text-gray-600">
+                    Delivered successfully
+                  </p>
                 </motion.div>
               </motion.div>
             </motion.div>
@@ -552,7 +599,7 @@ function App() {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.3 }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div variants={containerVariants}>
@@ -569,25 +616,23 @@ function App() {
               className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
               variants={containerVariants}
             >
-              {skills.map((skill, index) => {
+              {skills.map((skill) => {
                 const Icon = skill.icon;
                 return (
                   <motion.div
                     key={skill.name}
-                    className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300"
+                    className="bg-white p-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-xl"
                     variants={itemVariants}
                     whileHover={{
-                      scale: 1.03,
-                      boxShadow: "0 10px 20px rgba(0, 82, 219, 0.4)",
+                      scale: 1.05,
+                      rotate: 1,
+                      boxShadow: `0 8px 20px ${"rgba(0, 82, 219, 0.4)"}`,
                     }}
-                    animate={{ scale: [1, 1.02, 1] }}
                     transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: index * 0.1,
+                      type: "spring",
+                      stiffness: 200,
+                      damping: 15,
                     }}
-                    style={{ animationDelay: `${index * 100}ms` }}
                   >
                     <div className="flex items-center mb-4">
                       <div
@@ -633,7 +678,7 @@ function App() {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.3 }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
           <motion.div variants={containerVariants}>
@@ -648,89 +693,66 @@ function App() {
             </motion.div>
 
             <motion.div
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 lg:gap-8"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
               variants={containerVariants}
-              style={{
-                gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              }}
             >
-              {projects.map((project, index) => (
+              {projects.map((project) => (
                 <motion.div
                   key={project.title}
-                  className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden relative group"
+                  className="bg-white rounded-xl shadow-md overflow-hidden relative group transition-all duration-300"
                   variants={itemVariants}
                   whileHover={{
                     scale: 1.03,
-                    y: window.innerWidth <= 1024 ? 0 : -5,
-                    rotate: 5,
-                    boxShadow: "0 15px 30px rgba(0, 82, 219, 0.5)",
+                    rotate: 0.5,
+                    boxShadow: "0 10px 20px rgba(0, 82, 219, 0.3)",
                   }}
-                  animate={{ scale: [1, 1.02, 1] }}
-                  transition={{
-                    duration: 1.5,
-                    ease: easeInOut,
-                    repeat: Infinity,
-                    delay: index * 0.1,
-                  }}
-                  style={{ animationDelay: `${index * 150}ms` }}
-                  onClick={() =>
-                    window.innerWidth < 1024
-                      ? setActiveIndex(activeIndex === index ? null : index)
-                      : null
-                  }
+                  transition={{ type: "spring", stiffness: 200, damping: 15 }}
                 >
-                  <div className="relative">
-                    <img
+                  {/* Image */}
+                  <div className="relative overflow-hidden">
+                    <motion.img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-auto object-contain transition-all duration-300 group-hover:blur-sm"
+                      className="w-full h-56 object-fill transition-transform duration-500 group-hover:scale-110"
                     />
-                    <motion.div
-                      className={`
-          absolute inset-0 bg-black/50 flex items-center justify-center space-x-4
-          transition-opacity duration-300
-          ${activeIndex === index ? "opacity-100" : "opacity-0"}
-          lg:opacity-0 group-hover:lg:opacity-100
-        `}
-                    >
-                      <motion.a
+                    <motion.div className="absolute inset-0 bg-black/50 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <a
                         href={project.liveUrl}
-                        className="p-3 bg-cyan-500 text-white rounded-full hover:bg-cyan-600 transition-all duration-300"
-                        whileHover={{ scale: 1.1, rotate: 5 }}
-                        whileTap={{ scale: 0.9, rotate: 5 }}
+                        className="p-3 bg-cyan-500 text-white rounded-full hover:bg-cyan-600 transition"
                       >
                         <ExternalLink size={20} />
-                      </motion.a>
-                      <motion.a
+                      </a>
+                      <a
                         href={project.githubUrl}
-                        className="p-3 bg-gray-800 text-white rounded-full hover:bg-gray-900 transition-all duration-300"
-                        whileHover={{ scale: 1.1, rotate: 5 }}
-                        whileTap={{ scale: 0.9, rotate: 5 }}
+                        className="p-3 bg-gray-800 text-white rounded-full hover:bg-gray-900 transition"
                       >
                         <Github size={20} />
-                      </motion.a>
+                      </a>
                     </motion.div>
                   </div>
 
+                  {/* Content */}
                   <div className="p-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">
-                      {project.title}
+                    <h3 className="text-xl font-bold text-gray-900 mb-2 hover:text-cyan-600 transition-colors">
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {project.title}
+                      </a>
                     </h3>
-                    <p className="text-gray-600 mb-4 leading-relaxed text-sm line-clamp-2">
+                    <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-2">
                       {project.description}
                     </p>
-                    <div className="flex flex-wrap gap-2 mb-4">
+                    <div className="flex flex-wrap gap-2">
                       {project.technologies.map((tech) => (
-                        <motion.span
+                        <span
                           key={tech}
                           className="px-3 py-1 bg-cyan-100 text-cyan-800 text-xs rounded-full"
-                          variants={itemVariants}
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.3 }}
                         >
                           {tech}
-                        </motion.span>
+                        </span>
                       ))}
                     </div>
                   </div>
@@ -741,30 +763,34 @@ function App() {
         </div>
       </motion.section>
 
-      {/* Experience Section */}
       <motion.section
         id="experience"
         className="py-24 bg-gradient-to-br from-gray-50 to-cyan-50"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.3 }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div variants={containerVariants}>
+            {/* Section Title */}
             <motion.div className="text-center mb-16" variants={itemVariants}>
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Experience & InternShip
+                Experience & Internship
               </h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
                 My professional journey and academic background.
               </p>
             </motion.div>
 
+            {/* Timeline */}
             <motion.div
-              className="max-w-3xl mx-auto"
+              className="max-w-3xl mx-auto relative"
               variants={containerVariants}
             >
+              {/* Vertical line */}
+              <div className="absolute left-6 top-20 w-0.5  bg-gradient-to-b from-cyan-500 to-blue-600 opacity-30" />
+
               {experiences.map((exp, index) => {
                 const Icon = exp.icon;
                 return (
@@ -772,30 +798,29 @@ function App() {
                     key={index}
                     className="relative flex items-start mb-12 last:mb-0"
                     variants={itemVariants}
-                    style={{ animationDelay: `${index * 200}ms` }}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.15 }}
                   >
-                    <motion.div
-                      className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full flex items-center justify-center mr-6 shadow-md"
-                      whileHover={{ rotate: 360 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <Icon size={20} className="text-white" />
-                    </motion.div>
+                    {index < experiences.length - 1 && (
+                      <div
+                        className="absolute left-6 bg-gradient-to-b from-cyan-500 to-blue-600 opacity-30"
+                        style={{
+                          top: "4rem",
+                          height: "7rem",
+                          width: "2px",
+                        }}
+                      />
+                    )}
 
-                    <motion.div
-                      className="flex-grow bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300"
-                      whileHover={{
-                        scale: 1.02,
-                        boxShadow: "0 10px 20px rgba(0, 82, 219, 0.3)",
-                      }}
-                      animate={{ scale: [1, 1.02, 1] }}
-                      transition={{
-                        duration: 1.5,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                    >
-                      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                    {/* Timeline dot */}
+                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full flex items-center justify-center mr-6 shadow-lg relative z-10">
+                      <Icon size={20} className="text-white" />
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex-grow bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border-l-4 border-cyan-500">
+                      <div className="flex flex-col list-disc  md:flex-row md:items-center md:justify-between mb-2">
                         <h3 className="text-lg font-bold text-gray-900">
                           {exp.title}
                         </h3>
@@ -806,14 +831,17 @@ function App() {
                       <h4 className="text-cyan-600 font-medium mb-3">
                         {exp.company}
                       </h4>
-                      <p className="text-gray-600 leading-relaxed text-sm">
-                        {exp.description}
-                      </p>
-                    </motion.div>
-
-                    {index < experiences.length - 1 && (
-                      <div className="absolute left-6 top-12 w-0.5 h-20 bg-gradient-to-b from-cyan-500 to-blue-600 opacity-20" />
-                    )}
+                      <ul className="list-disc pl-4 text-gray-600 text-sm leading-relaxed marker:text-cyan-500">
+                        {exp.description.split(". ").map((point, i) => (
+                          <li key={i}>
+                            <span className="font-medium">
+                              {point.split(" ")[0]}
+                            </span>{" "}
+                            {point.slice(point.indexOf(" ") + 1)}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </motion.div>
                 );
               })}
@@ -827,12 +855,13 @@ function App() {
         id="contact"
         className="py-24 bg-white"
         variants={containerVariants}
-        initial="hidden"
+        initial={false}
         whileInView="visible"
-        viewport={{ once: false, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.3 }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div variants={containerVariants}>
+            {/* Title */}
             <motion.div className="text-center mb-16" variants={itemVariants}>
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
                 Get In Touch
@@ -843,10 +872,12 @@ function App() {
               </p>
             </motion.div>
 
+            {/* Content */}
             <motion.div
               className="grid md:grid-cols-2 gap-12"
               variants={containerVariants}
             >
+              {/* Contact Info */}
               <motion.div variants={itemVariants}>
                 <h3 className="text-2xl font-bold text-gray-900 mb-6">
                   Let's Work Together
@@ -857,51 +888,63 @@ function App() {
                 </p>
 
                 <div className="space-y-6">
-                  <motion.div
-                    className="flex items-center"
-                    whileHover={{ x: 10 }}
-                  >
-                    <div className="p-3 bg-cyan-100 rounded-lg mr-4 shadow-sm">
-                      <Mail size={20} className="text-cyan-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-gray-900">Email</h4>
-                      <p className="text-gray-600">
-                        abdelrahmanhabib502@gmail.com
-                      </p>
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    className="flex items-center"
-                    whileHover={{ x: 10 }}
-                  >
-                    <div className="p-3 bg-emerald-100 rounded-lg mr-4 shadow-sm">
-                      <Phone size={20} className="text-emerald-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-gray-900">Phone</h4>
-                      <p className="text-gray-600">+20 1023289634</p>
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    className="flex items-center"
-                    whileHover={{ x: 10 }}
-                  >
-                    <div className="p-3 bg-blue-100 rounded-lg mr-4 shadow-sm">
-                      <MapPin size={20} className="text-blue-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-medium text-gray-900">Location</h4>
-                      <p className="text-gray-600">Egypt</p>
-                    </div>
-                  </motion.div>
+                  {[
+                    {
+                      icon: <Mail size={20} className="text-cyan-600" />,
+                      title: "Email",
+                      value: "abdelrahmanhabib502@gmail.com",
+                      bg: "bg-cyan-100",
+                    },
+                    {
+                      icon: <Phone size={20} className="text-emerald-600" />,
+                      title: "Phone",
+                      value: "+20 1023289634",
+                      bg: "bg-emerald-100",
+                    },
+                    {
+                      icon: <MapPin size={20} className="text-blue-600" />,
+                      title: "Location",
+                      value: "Egypt",
+                      bg: "bg-blue-100",
+                    },
+                  ].map((item, i) => (
+                    <motion.div
+                      key={i}
+                      className="flex items-center cursor-pointer"
+                      whileHover={{ x: 10, scale: 1.02 }}
+                      transition={{ type: "spring", stiffness: 200 }}
+                    >
+                      <div
+                        className={`p-3 ${item.bg} rounded-lg mr-4 shadow-sm`}
+                      >
+                        {item.icon}
+                      </div>
+                      <div>
+                        <h4 className="font-medium text-gray-900">
+                          {item.title}
+                        </h4>
+                        <p className="text-gray-600">{item.value}</p>
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
               </motion.div>
 
+              {/* Contact Form */}
               <motion.div variants={itemVariants}>
-                <div className="space-y-6">
+                <form
+                  action="https://formsubmit.co/abdelrahmanhabib502@gmail.com"
+                  method="POST"
+                  className="space-y-6"
+                >
+                  {/* FormSubmit Hidden Config */}
+                  <input type="hidden" name="_captcha" value="false" />
+                  <input
+                    type="hidden"
+                    name="_next"
+                    value="https://protoflio58.netlify.app"
+                  />
+
                   <div>
                     <label
                       htmlFor="name"
@@ -911,8 +954,9 @@ function App() {
                     </label>
                     <motion.input
                       type="text"
-                      id="name"
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300 bg-gray-50"
+                      name="name"
+                      required
+                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-cyan-500 bg-gray-50"
                       placeholder="Your full name"
                       whileFocus={{ scale: 1.02 }}
                     />
@@ -927,8 +971,9 @@ function App() {
                     </label>
                     <motion.input
                       type="email"
-                      id="email"
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300 bg-gray-50"
+                      name="email"
+                      required
+                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-cyan-500 bg-gray-50"
                       placeholder="your.email@example.com"
                       whileFocus={{ scale: 1.02 }}
                     />
@@ -942,9 +987,10 @@ function App() {
                       Message
                     </label>
                     <motion.textarea
-                      id="message"
+                      name="message"
                       rows={5}
-                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300 bg-gray-50 resize-none"
+                      required
+                      className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-cyan-500 bg-gray-50 resize-none"
                       placeholder="Tell me about your project..."
                       whileFocus={{ scale: 1.02 }}
                     />
@@ -952,23 +998,17 @@ function App() {
 
                   <motion.button
                     type="submit"
-                    className="w-full px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center"
+                    className="w-full px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg font-medium shadow-md hover:shadow-lg flex items-center justify-center"
                     whileHover={{
                       scale: 1.05,
                       boxShadow: "0 15px 30px rgba(0, 82, 219, 0.5)",
                     }}
                     whileTap={{ scale: 0.95 }}
-                    animate={{ scale: [1, 1.02, 1] }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
                   >
                     <Send size={20} className="mr-2" />
                     Send Message
                   </motion.button>
-                </div>
+                </form>
               </motion.div>
             </motion.div>
           </motion.div>
@@ -979,9 +1019,9 @@ function App() {
       <motion.footer
         className="bg-gray-900 text-white py-12"
         variants={containerVariants}
-        initial="hidden"
+        initial={false}
         whileInView="visible"
-        viewport={{ once: false, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.3 }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div className="text-center" variants={containerVariants}>
