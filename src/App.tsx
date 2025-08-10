@@ -15,7 +15,6 @@ import {
   Code,
   Database,
   Award,
-  Calendar,
   ChevronDown,
   Send,
   User,
