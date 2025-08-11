@@ -332,7 +332,7 @@ function App() {
         className="relative min-h-screen flex items-center justify-center pt-20 bg-gradient-to-br from-gray-50 to-cyan-50 overflow-hidden"
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: false, amount: 0.3 }}
         variants={{
           hidden: { opacity: 0 },
           visible: {
@@ -363,16 +363,48 @@ function App() {
 
           {/* Title */}
           <motion.h1
-            className="text-5xl md:text-7xl font-bold text-gray-900 mb-6"
+            className="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight"
             variants={{
-              hidden: { opacity: 0, y: 30 },
-              visible: { opacity: 1, y: 0 },
+              hidden: { opacity: 0, y: 40 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: {
+                  duration: 0.8,
+                  ease: "easeOut",
+                },
+              },
             }}
+            initial="hidden"
+            animate="visible"
           >
             Hi, I'm{" "}
-            <span className="bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent animate-gradient-x">
-              Abdelrahman Habib
-            </span>
+            <motion.span
+              className="bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 bg-clip-text text-transparent animate-gradient-x"
+              style={{
+                backgroundSize: "200% 200%",
+              }}
+              animate={{
+                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+              }}
+              transition={{
+                duration: 6,
+                ease: "linear",
+                repeat: Infinity,
+              }}
+            >
+              {/* اسمك بحروف متحركة */}
+              {Array.from("Abdelrahman Habib").map((char, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </motion.span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -467,10 +499,10 @@ function App() {
         className="py-16 sm:py-20 lg:py-24 bg-white relative overflow-hidden"
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: false, amount: 0.1 }}
         variants={{
           hidden: { opacity: 0 },
-          visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
+          visible: { opacity: 1, transition: { staggerChildren: 0.5 } },
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -523,6 +555,8 @@ function App() {
                 hidden: { opacity: 0, x: 30 },
                 visible: { opacity: 1, x: 0 },
               }}
+              animate={{ y: [0, -5, 0] }}
+              transition={{ duration: 2, ease: "easeInOut" }}
             >
               <h3 className="text-xl sm:text-2xl flex justify-center sm:justify-start items-center font-bold text-gray-900 mb-5">
                 Front End Developer
@@ -599,7 +633,7 @@ function App() {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: false, amount: 0.1 }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div variants={containerVariants}>
@@ -678,7 +712,7 @@ function App() {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: false, amount: 0.1 }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
           <motion.div variants={containerVariants}>
@@ -769,7 +803,7 @@ function App() {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: false, amount: 0.1 }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div variants={containerVariants}>
@@ -857,7 +891,7 @@ function App() {
         variants={containerVariants}
         initial={false}
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: false, amount: 0.1 }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div variants={containerVariants}>
@@ -1021,7 +1055,7 @@ function App() {
         variants={containerVariants}
         initial={false}
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.1 }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div className="text-center" variants={containerVariants}>
