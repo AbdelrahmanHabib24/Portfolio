@@ -33,7 +33,38 @@ import {
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const [displayText, setDisplayText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [loopNum, setLoopNum] = useState(0);
+  const [typingSpeed, setTypingSpeed] = useState(150);
+
+  const texts = ["a Front-End Developer"];
   // Active section tracking
+
+  useEffect(() => {
+    const handleTyping = () => {
+      const currentText = texts[loopNum % texts.length];
+      setDisplayText(
+        isDeleting
+          ? currentText.substring(0, displayText.length - 1)
+          : currentText.substring(0, displayText.length + 1)
+      );
+
+      if (!isDeleting && displayText === currentText) {
+        setTimeout(() => setIsDeleting(true), 1000);
+      } else if (isDeleting && displayText === "") {
+        setIsDeleting(false);
+        setLoopNum(loopNum + 1);
+      }
+
+      setTypingSpeed(isDeleting ? 80 : 150);
+    };
+
+    const timer = setTimeout(handleTyping, typingSpeed);
+
+    return () => clearTimeout(timer);
+  }, [displayText, isDeleting, loopNum, typingSpeed]);
+
   useEffect(() => {
     const handleScroll = () => {
       const sections = [
@@ -329,7 +360,7 @@ function App() {
       {/* Hero Section */}
       <motion.section
         id="home"
-        className="relative min-h-screen flex items-center justify-center pt-20 bg-gradient-to-br from-gray-50 to-cyan-50 overflow-hidden"
+        className="relative h-screen flex items-center justify-center pt-20 bg-gradient-to-br from-gray-50 to-cyan-50 overflow-hidden"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: false, amount: 0.3 }}
@@ -343,7 +374,7 @@ function App() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {/* Profile Image */}
-          <motion.div
+          {/* <motion.div
             className="relative w-52 h-52 mx-auto mb-8 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 p-1 shadow-lg"
             variants={{
               hidden: { opacity: 0, y: 30 },
@@ -359,20 +390,17 @@ function App() {
                 className="w-48 h-48 object-fill rounded-full"
               />
             </div>
-          </motion.div>
+          </motion.div> */}
 
           {/* Title */}
           <motion.h1
-            className="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight"
+            className="text-5xl md:text-7xl font-bold text-gray-900 mb-4 leading-tight"
             variants={{
               hidden: { opacity: 0, y: 40 },
               visible: {
                 opacity: 1,
                 y: 0,
-                transition: {
-                  duration: 0.8,
-                  ease: "easeOut",
-                },
+                transition: { duration: 0.8, ease: "easeOut" },
               },
             }}
             initial="hidden"
@@ -380,10 +408,8 @@ function App() {
           >
             Hi, I'm{" "}
             <motion.span
-              className="bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 bg-clip-text text-transparent animate-gradient-x"
-              style={{
-                backgroundSize: "200% 200%",
-              }}
+              className="bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 bg-clip-text text-transparent"
+              style={{ backgroundSize: "200% 200%" }}
               animate={{
                 backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
               }}
@@ -393,31 +419,21 @@ function App() {
                 repeat: Infinity,
               }}
             >
-              {/* اسمك بحروف متحركة */}
-              {Array.from("Abdelrahman Habib").map((char, i) => (
-                <motion.span
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                >
-                  {char}
-                </motion.span>
-              ))}
+              Abdelrahman Habib
             </motion.span>
           </motion.h1>
 
-          {/* Subtitle */}
-          <motion.p
-            className="text-xl md:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed"
-            variants={{
-              hidden: { opacity: 0, y: 30 },
-              visible: { opacity: 1, y: 0 },
-            }}
+          <motion.h2
+            className="bg-gradient-to-r mb-10 text-5xl font-bold from-cyan-500 via-blue-500 to-purple-500 bg-clip-text text-transparent"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
           >
-            A Frontend Developer building sleek, responsive, and high-performing
-            web interfaces with modern technologies.
-          </motion.p>
+            {displayText}
+            <span className="border-r-2 border-cyan-500 animate-pulse"></span>
+          </motion.h2>
+
+          {/* Subtitle */}
 
           {/* CTA Buttons */}
           <motion.div
@@ -474,8 +490,11 @@ function App() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-300"
-                whileHover={{ scale: 1.15, rotate: 8 }}
-                whileTap={{ scale: 0.9 }}
+                variants={itemVariants}
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                whileTap={{ scale: 2.5 }}
+                animate={{ rotate: [0,360] }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
               >
                 {link.icon}
               </motion.a>
@@ -485,7 +504,7 @@ function App() {
 
         {/* Scroll Down Icon */}
         <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          className="absolute bottom-8 left-50% transform "
           animate={{ y: [0, -10, 0] }}
           transition={{ repeat: Infinity, duration: 1.5 }}
         >
@@ -493,16 +512,18 @@ function App() {
         </motion.div>
       </motion.section>
 
-      {/* About Section */}
       <motion.section
         id="about"
         className="py-16 sm:py-20 lg:py-24 bg-white relative overflow-hidden"
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.1 }}
+        viewport={{ once: false, amount: 0.2 }}
         variants={{
           hidden: { opacity: 0 },
-          visible: { opacity: 1, transition: { staggerChildren: 0.5 } },
+          visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.3, delayChildren: 0.2 },
+          },
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -510,14 +531,19 @@ function App() {
           <motion.div
             className="text-center mb-12 sm:mb-16"
             variants={{
-              hidden: { opacity: 0, y: 30 },
-              visible: { opacity: 1, y: 0 },
+              hidden: { opacity: 0, y: 40 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
             }}
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <motion.h2
+              className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4"
+              initial={{ clipPath: "inset(0 100% 0 0)" }}
+              animate={{ clipPath: "inset(0 0% 0 0)" }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
               About Me
-            </h2>
-            <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            </motion.h2>
+            <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
               Discover my journey, skills, and passion for creating impactful
               digital solutions.
             </p>
@@ -525,26 +551,25 @@ function App() {
 
           {/* Content */}
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-center "
+            className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-center"
             variants={{
               hidden: {},
-              visible: { transition: { staggerChildren: 0.15 } },
+              visible: { transition: { staggerChildren: 0.2 } },
             }}
           >
             {/* Lottie Animation */}
             <motion.div
-              className="flex justify-center items-center "
+              className="flex justify-center items-center"
               variants={{
-                hidden: { opacity: 0, x: -30 },
-                visible: { opacity: 1, x: 0 },
+                hidden: { opacity: 0, x: -40 },
+                visible: { opacity: 1, x: 0, transition: { duration: 0.6 } },
               }}
-              animate={{ y: [0, -5, 0] }}
-              transition={{ duration: 4, ease: "easeInOut" }}
+              whileHover={{ scale: 1.02 }}
             >
               <Lottie
                 animationData={programmingAnimation}
                 loop={true}
-                className=" w-full h-auto"
+                className="w-full h-auto"
               />
             </motion.div>
 
@@ -552,47 +577,43 @@ function App() {
             <motion.div
               className="flex flex-col justify-center"
               variants={{
-                hidden: { opacity: 0, x: 30 },
-                visible: { opacity: 1, x: 0 },
+                hidden: { opacity: 0, x: 40 },
+                visible: { opacity: 1, x: 0, transition: { duration: 0.6 } },
               }}
-              animate={{ y: [0, -5, 0] }}
-              transition={{ duration: 2, ease: "easeInOut" }}
             >
-              <h3 className="text-xl sm:text-2xl flex justify-center sm:justify-start items-center font-bold text-gray-900 mb-5">
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-5 lg:text-start text-center">
                 Front End Developer
               </h3>
 
-              <ul className="list-disc pl-5 text-gray-600 mb-8 leading-relaxed text-base sm:text-lg sm:space-y-4">
-                <li>Building modern and responsive web applications.</li>
-                <li>
-                  Experienced in <strong>React</strong>,{" "}
-                  <strong>Next.js</strong>, and <strong>Tailwind CSS</strong>.
-                </li>
-                <li>
-                  Creating <strong>user-friendly interfaces</strong> with high
-                  performance and accessibility.
-                </li>
-                <li>
-                  Delivered real-world projects like{" "}
-                  <strong>interactive dashboards</strong> and voice-enabled UIs.
-                </li>
-                <li>
-                  Skilled in tools like <strong>Framer Motion</strong>, Konva,
-                  and LiveKit.
-                </li>
-                <li>
-                  Passionate about <strong>frontend architecture</strong> and
-                  animations.
-                </li>
-                <li>
-                  Improving developer experience through{" "}
-                  <strong>scalable code</strong> and thoughtful UI patterns.
-                </li>
-                <li>
-                  Continuously exploring{" "}
-                  <strong>emerging web technologies</strong>.
-                </li>
-              </ul>
+              {/* Skills List */}
+              <motion.ul
+                className="list-disc pl-5 text-gray-600 mb-8 leading-relaxed text-base sm:text-lg space-y-2"
+                variants={{
+                  hidden: {},
+                  visible: { transition: { staggerChildren: 0.05 } },
+                }}
+              >
+                {[
+                  "Building modern and responsive web applications.",
+                  "Experienced in React, Next.js, and Tailwind CSS.",
+                  "Creating user-friendly interfaces with high performance and accessibility.",
+                  "Delivered real-world projects like interactive dashboards and voice-enabled UIs.",
+                  "Skilled in tools like Framer Motion, Konva, and LiveKit.",
+                  "Passionate about frontend architecture and animations.",
+                  "Improving developer experience through scalable code and thoughtful UI patterns.",
+                  "Continuously exploring emerging web technologies.",
+                ].map((skill, index) => (
+                  <motion.li
+                    key={index}
+                    variants={{
+                      hidden: { opacity: 0, x: -10 },
+                      visible: { opacity: 1, x: 0 },
+                    }}
+                  >
+                    {skill}
+                  </motion.li>
+                ))}
+              </motion.ul>
 
               {/* Stats */}
               <motion.div
@@ -603,7 +624,7 @@ function App() {
                 }}
               >
                 <motion.div
-                  className="p-4 bg-gray-50 rounded-lg shadow-sm cursor-pointer"
+                  className="p-4 bg-gray-50 rounded-lg shadow-sm"
                   variants={{
                     hidden: { opacity: 0, y: 20 },
                     visible: { opacity: 1, y: 0 },
@@ -612,10 +633,11 @@ function App() {
                     scale: 1.05,
                     boxShadow: "0 8px 20px rgba(0, 82, 219, 0.25)",
                   }}
-                  transition={{ duration: 0.3 }}
                 >
                   <Award className="text-cyan-500 mb-2" size={24} />
-                  <h4 className="font-semibold text-gray-900">5+ Projects</h4>
+                  <h4 className="font-semibold text-gray-900">
+                    5+ <span className="text-sm">Projects</span>
+                  </h4>
                   <p className="text-sm text-gray-600">
                     Delivered successfully
                   </p>
