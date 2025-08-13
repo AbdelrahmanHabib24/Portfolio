@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
 
 export default function Projects() {
-
   const projects = [
     {
       title: "Voice Agent",
@@ -11,7 +11,7 @@ export default function Projects() {
       image: "/Screenshot 2025-07-22.png",
       technologies: ["Next", "Tailwind", "Python", "LiveKit"],
       liveUrl: "https://live-kit-agent.vercel.app/",
-      githubUrl: "#",
+      githubUrl: "https://github.com/AbdelrahmanHabib24/LiveKit-agent",
     },
     {
       title: "Movie App",
@@ -52,155 +52,101 @@ export default function Projects() {
   ];
 
   return (
-   <motion.section
-  id="projects"
-  className="py-24 bg-white dark:bg-gray-900"
-  variants={{
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeInOut",
-        staggerChildren: 0.2,
-      },
-    },
-  }}
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: false, amount: 0.1 }}
->
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-    <motion.div
+    <motion.section
+      id="projects"
+      className="py-24 bg-white dark:bg-gray-900"
       variants={{
         hidden: { opacity: 0, y: 50 },
-        visible: {
-          opacity: 1,
-          y: 0,
-          transition: {
-            duration: 0.8,
-            ease: "easeInOut",
-            staggerChildren: 0.2,
-          },
-        },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeInOut", staggerChildren: 0.2 } },
       }}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: false, amount: 0.1 }}
     >
-      <motion.div
-        className="text-center mb-16"
-        variants={{
-          hidden: { opacity: 0, y: 20 },
-          visible: {
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.5, ease: "easeInOut" },
-          },
-        }}
-      >
-        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
-          Featured Projects
-        </h2>
-        <p className="text-lg max-w-2xl mx-auto leading-relaxed text-gray-600 dark:text-gray-300">
-          Explore some of my recent work showcasing creativity and technical
-          expertise.
-        </p>
-      </motion.div>
-      <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-        variants={{
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+        <motion.div variants={{
           hidden: { opacity: 0, y: 50 },
-          visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-              duration: 0.8,
-              ease: "easeInOut",
-              staggerChildren: 0.2,
-            },
-          },
-        }}
-      >
-        {projects.map((project) => (
-          <motion.div
-            key={project.title}
-            className="rounded-xl overflow-hidden relative group transition-all duration-300 bg-white shadow-md hover:shadow-xl dark:bg-black dark:shadow-lg"
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: {
-                opacity: 1,
-                y: 0,
-                transition: { duration: 0.5, ease: "easeInOut" },
-              },
-            }}
-            whileHover={{
-              scale: 1.03,
-              rotate: 0.5,
-              boxShadow: "0 10px 20px rgba(0, 82, 219, 0.3)",
-            }}
-            transition={{ type: "spring", stiffness: 200, damping: 15 }}
-          >
-            <div className="relative overflow-hidden">
-              <motion.img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-56 object-fill transition-transform duration-500 group-hover:scale-110"
-              />
-              <motion.div
-                className="absolute inset-0 flex items-center justify-center gap-4 transition-opacity duration-300 bg-black/50 dark:bg-black/60"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0 }}
-                whileHover={{ opacity: 1 }}
-              >
-                <a
-                  href={project.liveUrl}
-                  className="p-3 bg-cyan-500 text-white rounded-full hover:bg-cyan-600 transition"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <ExternalLink size={20} />
-                </a>
-                {project.githubUrl !== "#" && (
-                  <a
-                    href={project.githubUrl}
-                    className="p-3 bg-gray-800 text-white rounded-full hover:bg-gray-900 transition"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Github size={20} />
-                  </a>
-                )}
-              </motion.div>
-            </div>
-            <div className="p-6">
-              <h3 className="text-xl font-bold mb-2 transition-colors text-gray-900 hover:text-cyan-600 dark:text-white dark:hover:text-cyan-400">
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {project.title}
-                </a>
-              </h3>
-              <p className="mb-4 text-sm leading-relaxed line-clamp-2 text-gray-600 dark:text-gray-300">
-                {project.description}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {project.technologies.map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-3 py-1 bg-cyan-100 text-cyan-800 text-xs rounded-full"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
+          visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeInOut", staggerChildren: 0.2 } },
+        }}>
+          <motion.div className="text-center mb-16" variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeInOut" } },
+          }}>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+              Featured Projects
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
+              Explore some of my recent work showcasing creativity and technical expertise.
+            </p>
           </motion.div>
-        ))}
-      </motion.div>
-    </motion.div>
-  </div>
-</motion.section>
-
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            variants={{
+              hidden: { opacity: 0, y: 50 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeInOut", staggerChildren: 0.2 } },
+            }}
+          >
+            {projects.map((project) => (
+              <motion.div
+                key={project.title}
+                className="bg-white dark:bg-black rounded-xl shadow-md overflow-hidden relative group transition-all duration-300"
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeInOut" } },
+                }}
+                whileHover={{
+                  scale: 1.03,
+                  rotate: 0.5,
+                  boxShadow: "0 10px 20px rgba(0, 82, 219, 0.3)",
+                }}
+                transition={{ type: "spring", stiffness: 200, damping: 15 }}
+              >
+                <div className="relative overflow-hidden">
+                  <motion.img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-56 object-fill transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <motion.div className="absolute inset-0 bg-black/50 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <a
+                      href={project.liveUrl}
+                      className="p-3 bg-cyan-500 text-white rounded-full hover:bg-cyan-600 transition"
+                    >
+                      <ExternalLink size={20} />
+                    </a>
+                    <a
+                      href={project.githubUrl}
+                      className="p-3 bg-gray-800 text-white rounded-full hover:bg-gray-900 transition"
+                    >
+                      <Github size={20} />
+                    </a>
+                  </motion.div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                      {project.title}
+                    </a>
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed line-clamp-2">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {project.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-3 py-1 bg-cyan-100 text-cyan-800 text-xs rounded-full dark:bg-cyan-900 dark:text-cyan-200"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
+      </div>
+    </motion.section>
   );
 }
