@@ -8,11 +8,9 @@ type SectionId = "projects" | "contact";
 
 interface HomeProps {
   scrollToSection: (sectionId: SectionId) => void;
- 
 }
 
 export default function Home({ scrollToSection }: HomeProps) {
-
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
@@ -39,14 +37,23 @@ export default function Home({ scrollToSection }: HomeProps) {
     return () => clearTimeout(timer);
   }, [displayText, isDeleting, loopNum, typingSpeed]);
 
+  const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 }
+  }
+};
+
   return (
-     <motion.section
+    <motion.section
       id="home"
       className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden 
         bg-gradient-to-br from-gray-50 to-cyan-50 dark:from-gray-800 dark:to-gray-900"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: false, amount: 0.3 }}
+        variants={containerVariants}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Title */}

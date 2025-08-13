@@ -117,7 +117,7 @@ export default function Navbar({ activeSection, scrollToSection, isMenuOpen, set
 
           {/* menu button*/}
           <motion.div
-            className="md:hidden flex items-center"
+            className="sm:hidden flex items-center"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -144,7 +144,7 @@ export default function Navbar({ activeSection, scrollToSection, isMenuOpen, set
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            className="md:hidden bg-white dark:bg-gray-900 shadow-lg origin-top"
+            className="sm:hidden bg-white dark:bg-gray-900 shadow-lg origin-top"
             initial={{ scaleY: 0, opacity: 0 }}
             animate={{ scaleY: 1, opacity: 1 }}
             exit={{ scaleY: 0, opacity: 0 }}

@@ -88,7 +88,6 @@ export default function About() {
                 "Experienced in React, Next.js, and Tailwind CSS.",
                 "Creating user-friendly interfaces with high performance and accessibility.",
                 "Delivered real-world projects like interactive dashboards and voice-enabled UIs.",
-                "Skilled in tools like Framer Motion, Konva, and LiveKit.",
                 "Passionate about frontend architecture and animations.",
                 "Improving developer experience through scalable code and thoughtful UI patterns.",
                 "Continuously exploring emerging web technologies.",
