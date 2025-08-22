@@ -5,7 +5,7 @@ import { Github, Linkedin, Mail } from "lucide-react";
 export default function Footer() {
   return (
     <motion.footer
-      className="bg-gray-900 text-white py-12"
+      className="bg-black text-white py-12"
       variants={{
         hidden: { opacity: 0, y: 50 },
         visible: {

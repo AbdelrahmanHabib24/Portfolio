@@ -7,7 +7,7 @@ export default function Contact() {
   return (
     <motion.section
       id="contact"
-      className="py-24 bg-white dark:bg-gray-900"
+      className="py-24 bg-white dark:bg-black"
       variants={{
         hidden: { opacity: 0, y: 50 },
         visible: {

@@ -49,7 +49,7 @@ export default function Home({ scrollToSection }: HomeProps) {
     <motion.section
       id="home"
       className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden 
-        bg-gradient-to-br from-gray-50 to-cyan-50 dark:from-gray-800 dark:to-gray-900"
+        bg-white dark:bg-black"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: false, amount: 0.3 }}

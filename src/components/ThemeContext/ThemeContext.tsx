@@ -20,7 +20,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
-    document.body.style.backgroundColor = darkMode ? "#0f0f0f" : "#fff";
+    document.body.style.backgroundColor = darkMode ? "#000000" : "#fff";
     localStorage.setItem("darkMode", String(darkMode));
   }, [darkMode]);
 

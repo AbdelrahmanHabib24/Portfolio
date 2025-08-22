@@ -9,7 +9,9 @@ export default function About() {
   return (
     <motion.section
       id="about"
-      className="py-16 sm:py-20 lg:py-24 relative overflow-hidden bg-gray-50 dark:bg-gray-800"
+      className="relative py-16 sm:py-20 lg:py-24 overflow-hidden
+                 bg-white dark:bg-black
+                   transition-colors duration-500"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: false, amount: 0.2 }}
@@ -21,7 +23,9 @@ export default function About() {
         },
       }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           className="text-center mb-12 sm:mb-16 text-gray-900 dark:text-white"
           variants={{
@@ -104,19 +108,9 @@ export default function About() {
               ))}
             </motion.ul>
 
-            <motion.div
-              className="grid grid-cols-2 gap-4"
-              variants={{
-                hidden: {},
-                visible: { transition: { staggerChildren: 0.1 } },
-              }}
-            >
+            <motion.div className="grid grid-cols-2 gap-4">
               <motion.div
-                className="p-4 rounded-lg shadow-sm bg-gray-50 dark:bg-gray-800"
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0 },
-                }}
+                className="p-4 rounded-lg shadow-sm bg-white dark:bg-gray-800"
                 whileHover={{
                   scale: 1.05,
                   boxShadow: "0 8px 20px rgba(0, 82, 219, 0.25)",
