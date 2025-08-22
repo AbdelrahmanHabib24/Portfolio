@@ -7,6 +7,7 @@ import Skills from "./components/Skills/Skills";
 import Projects from "./components/Projects/Projects";
 import Experience from "./components/Experience/Experience";
 import Contact from "./components/Contact/Contact";
+import ParticlesBackground from "./components/ParticlesBackground/ParticlesBackground";
 
 type SectionId =
   | "home"
@@ -60,34 +61,38 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen overflow-x-hidden font-sans transition-colors duration-500">
-      <Navbar
-        activeSection={activeSection}
-        scrollToSection={scrollToSection}
-        isMenuOpen={isMenuOpen}
-        setIsMenuOpen={setIsMenuOpen}
-      />
+    <>
+      <div className="relative  font-sans transition-colors duration-500">
+        <Navbar
+          activeSection={activeSection}
+          scrollToSection={scrollToSection}
+          isMenuOpen={isMenuOpen}
+          setIsMenuOpen={setIsMenuOpen}
+        />
 
-      <div id="home">
-        <Home scrollToSection={scrollToSection} />
-      </div>
-      <div id="about">
-        <About />
-      </div>
-      <div id="skills">
-        <Skills />
-      </div>
-      <div id="projects">
-        <Projects />
-      </div>
-      <div id="experience">
-        <Experience />
-      </div>
-      <div id="contact">
-        <Contact />
-      </div>
+        <div id="home">
+          <Home scrollToSection={scrollToSection} />
+        </div>
+        <div id="about">
 
-      <Footer />
-    </div>
+          <About />
+        </div>
+        <div id="skills">
+          <Skills />
+        </div>
+        <div id="projects">
+          <Projects />
+        </div>
+        <div id="experience">
+          <ParticlesBackground/>
+          <Experience />
+        </div>
+        <div id="contact">
+          <Contact />
+        </div>
+
+        <Footer />
+      </div>
+    </>
   );
 }

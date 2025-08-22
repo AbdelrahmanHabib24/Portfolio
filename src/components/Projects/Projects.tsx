@@ -51,10 +51,12 @@ export default function Projects() {
     },
   ];
 
+       
+
   return (
     <motion.section
       id="projects"
-      className="py-24 bg-white dark:bg-gray-900"
+      className="py-24 bg-white dark:bg-black"
       variants={{
         hidden: { opacity: 0, y: 50 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeInOut", staggerChildren: 0.2 } },

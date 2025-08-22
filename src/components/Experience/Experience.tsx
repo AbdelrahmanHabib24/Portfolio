@@ -9,7 +9,7 @@ export default function Experience() {
       type: "work",
       title: "Front End Developer",
       company: "Eyego",
-      period: "May 2025 - Present",
+      period: "Sep 2025 - Present",
       description:
         "Led frontend development for an AI-based real-time people tracking system using Next.js, Redux, and WebSockets ,Integrated AI models for live location tracking, people classification, and step estimation.",
       icon: Briefcase,
@@ -37,7 +37,7 @@ export default function Experience() {
   return (
     <motion.section
       id="experience"
-      className="py-24 bg-gradient-to-br from-gray-50 to-cyan-50 dark:from-gray-900 dark:to-cyan-900"
+      className="py-24 bg-white dark:bg-black"
       variants={{
         hidden: { opacity: 0, y: 50 },
         visible: {
