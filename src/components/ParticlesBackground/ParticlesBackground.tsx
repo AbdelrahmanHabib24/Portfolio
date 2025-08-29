@@ -9,7 +9,7 @@ export default function ParticlesBackground() {
   if (!darkMode) return null;
 
   const particles = useMemo(() => {
-    return [...Array(300)].map((_, i) => {
+    return [...Array(150)].map((_, i) => {
       const size = Math.random() * 2 + 1;
       const duration = 6 + Math.random() * 6;
       const delay = Math.random() * 2; 
