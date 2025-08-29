@@ -9,10 +9,10 @@ export default function ParticlesBackground() {
   if (!darkMode) return null;
 
   const particles = useMemo(() => {
-    return [...Array(150)].map((_, i) => {
+    return [...Array(100)].map((_, i) => {
       const size = Math.random() * 2 + 1;
       const duration = 6 + Math.random() * 6;
-      const delay = Math.random() * 2; 
+      const delay = 0; 
       const angle = Math.random() * Math.PI * 2;
       const distance = 50 + Math.random() * 50;
 
@@ -49,7 +49,9 @@ export default function ParticlesBackground() {
               width: p.size,
               height: p.size,
               background: "white",
-              boxShadow: `0 0 ${p.size * 6}px ${p.size * 1.5}px rgba(255,255,255,0.8)`,
+              boxShadow: `0 0 ${p.size * 6}px ${
+                p.size * 1.5
+              }px rgba(255,255,255,0.8)`,
             }}
           />
         </motion.div>
