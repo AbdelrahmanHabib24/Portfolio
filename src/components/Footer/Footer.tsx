@@ -5,7 +5,7 @@ import { Github, Linkedin, Mail } from "lucide-react";
 export default function Footer() {
   return (
     <motion.footer
-      className="bg-black text-white py-12"
+      className="dark:bg-black bg-white text-white py-12"
       variants={{
         hidden: { opacity: 0, y: 50 },
         visible: {
@@ -32,7 +32,7 @@ export default function Footer() {
           >
             <motion.a
               href="https://github.com/AbdelrahmanHabib24"
-              className="p-3 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors"
+              className="p-3 rounded-full shadow-md transition-all duration-300 bg-white hover:shadow-lg dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-white"
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
               whileHover={{ scale: 1.1, rotate: 5 }}
               animate={{ rotate: [0, 360] }}
@@ -42,7 +42,7 @@ export default function Footer() {
             </motion.a>
             <motion.a
               href="https://www.linkedin.com/in/abdelrahmanhabib23/"
-              className="p-3 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors"
+              className="p-3 rounded-full shadow-md transition-all duration-300 bg-white hover:shadow-lg dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-white"
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
               whileHover={{ scale: 1.1, rotate: 5 }}
               animate={{ rotate: [0, 360] }}
@@ -52,7 +52,7 @@ export default function Footer() {
             </motion.a>
             <motion.a
               href="mailto:abdelrahmanhabib502@gmail.com"
-              className="p-3 bg-gray-800 rounded-full hover:bg-gray-700 transition-colors"
+              className="p-3 rounded-full shadow-md transition-all duration-300 bg-white hover:shadow-lg dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-white"
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
               whileHover={{ scale: 1.1, rotate: 5 }}
               animate={{ rotate: [0, 360] }}

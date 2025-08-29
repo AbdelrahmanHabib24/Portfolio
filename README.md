@@ -1,69 +1,51 @@
-# React + TypeScript + Vite
+# LiveKit Voice Agent Web App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a **React + Next.js** web application that integrates **LiveKit** to create a real-time voice agent interface. Users can interact with a voice AI assistant via live audio, chat, and video streams.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* **Real-Time Voice Communication**: Stream audio to and from the AI agent with LiveKit.
+* **Voice Assistant Integration**: Supports listening, thinking, and speaking states of the agent.
+* **Chat Functionality**: Send and receive chat messages while interacting with the voice agent.
+* **Responsive UI Components**:
 
-## Expanding the ESLint configuration
+  * Welcome screen with start call button.
+  * Session view for active calls and media tiles.
+  * Chat message view with smooth animations.
+  * Agent control bar for sending messages and toggling features.
+* **Media Management**: Handle microphone, camera, and audio rendering with error handling.
+* **Pre-Connection Buffer**: Configurable pre-connect buffer for smoother audio initialization.
+* **Animations**: Smooth transitions using `motion/react` for UI elements.
+* **Error Handling**: Alerts for media device errors, connection issues, and session timeouts.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tech Stack
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+* **React / Next.js**
+* **TypeScript**
+* **LiveKit Client & Components**
+* **motion/react** for animations
+* **Tailwind CSS** for styling
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## Setup
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Clone the repository:
+
+```bash
+git clone <repo-url>
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Install dependencies:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
+
+3. Add your **LiveKit server URL** and **participant token** in `useConnectionDetails` or via environment variables.
+
+4. Run the development server:
+
+```bash
+npm run dev
+```
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
