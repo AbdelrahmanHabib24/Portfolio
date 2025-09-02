@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Github, Linkedin, Mail, ChevronDown } from "lucide-react";
-import Image from "next/image";
 
 type SectionId = "projects" | "contact";
 
@@ -63,7 +62,7 @@ export default function Home({ scrollToSection }: HomeProps) {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <Image
+          <img
             src="/WhatsApp Image 2025-09-02 at 13.27.26_df05d2f2.jpg"
             alt="Abdelrahman Habib"
             className="w-52 h-52 rounded-full  object-cover object-top border-4 border-cyan-500 shadow-lg"
