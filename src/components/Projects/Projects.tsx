@@ -4,15 +4,15 @@ import { ExternalLink, Github } from "lucide-react";
 
 export default function Projects() {
   const projects = [
-    {
-      title: "Voice Agent",
-      description:
-        "Built the frontend of a real-time voice assistant using Next.js and LiveKit, featuring WebRTC audio streaming, animated waveforms, and chat-based interaction with Deepgram STT, Gemini LLM, and Cartesia TTS integration.",
-      image: "/Screenshot 2025-07-22.png",
-      technologies: ["Next", "Tailwind", "Python", "LiveKit"],
-      liveUrl: "https://live-kit-agent.vercel.app/",
-      githubUrl: "https://github.com/AbdelrahmanHabib24/LiveKit-agent",
-    },
+    // {
+    //   title: "Voice Agent",
+    //   description:
+    //     "Built the frontend of a real-time voice assistant using Next.js and LiveKit, featuring WebRTC audio streaming, animated waveforms, and chat-based interaction with Deepgram STT, Gemini LLM, and Cartesia TTS integration.",
+    //   image: "/Screenshot 2025-07-22.png",
+    //   technologies: ["Next", "Tailwind", "Python", "LiveKit"],
+    //   liveUrl: "https://live-kit-agent.vercel.app/",
+    //   githubUrl: "https://github.com/AbdelrahmanHabib24/LiveKit-agent",
+    // },
     {
       title: "Movie App",
       description:
