@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Github, Linkedin, Mail, ChevronDown } from "lucide-react";
+import Image from "next/image";
 
 type SectionId = "projects" | "contact";
 
@@ -38,12 +39,12 @@ export default function Home({ scrollToSection }: HomeProps) {
   }, [displayText, isDeleting, loopNum, typingSpeed]);
 
   const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 }
-  }
-};
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15 },
+    },
+  };
 
   return (
     <motion.section
@@ -53,9 +54,22 @@ export default function Home({ scrollToSection }: HomeProps) {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: false, amount: 0.3 }}
-        variants={containerVariants}
+      variants={containerVariants}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 z-20 lg:px-8 text-center">
+        <motion.div
+          className="flex justify-center  mb-6"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <Image
+            src="/WhatsApp Image 2025-09-02 at 13.27.26_df05d2f2.jpg"
+            alt="Abdelrahman Habib"
+            className="w-52 h-52 rounded-full  object-cover object-top border-4 border-cyan-500 shadow-lg"
+          />
+        </motion.div>
+
         {/* Title */}
         <motion.h1
           className="text-5xl md:text-7xl font-bold lg:mb-4 leading-tight text-gray-900 dark:text-white"
