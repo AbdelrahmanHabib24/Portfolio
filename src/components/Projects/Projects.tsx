@@ -56,7 +56,7 @@ export default function Projects() {
       title: "Car Rental Dashboard",
       description:
         "Built a responsive car-rental admin dashboard with React and Tailwind; uses Zustand for state management. Admins can view fleet status, add/edit vehicles and drivers, track bookings, filter by status, and see earnings & activity in real time.",
-      image: "/screenshot-car-rental-dashboard.png",
+      image: "/Car-Rental.png",
       technologies: ["React", "Tailwind CSS", "Zustand", "React Router"],
       liveUrl: "https://car-rental4.netlify.app/",
       githubUrl: "https://github.com/AbdelrahmanHabib24/CarRental---Dashboard",
