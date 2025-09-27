@@ -4,15 +4,26 @@ import { ExternalLink, Github } from "lucide-react";
 
 export default function Projects() {
   const projects = [
-    // {
-    //   title: "Voice Agent",
-    //   description:
-    //     "Built the frontend of a real-time voice assistant using Next.js and LiveKit, featuring WebRTC audio streaming, animated waveforms, and chat-based interaction with Deepgram STT, Gemini LLM, and Cartesia TTS integration.",
-    //   image: "/Screenshot 2025-07-22.png",
-    //   technologies: ["Next", "Tailwind", "Python", "LiveKit"],
-    //   liveUrl: "https://live-kit-agent.vercel.app/",
-    //   githubUrl: "https://github.com/AbdelrahmanHabib24/LiveKit-agent",
-    // },
+    {
+      title: "Travel and Tour",
+      description:
+        "Explore our Tour and Travel app for easy planning and unforgettable adventures. Crafted with Next.js and Tailwind CSS for a smooth, modern experience.",
+      image: "/Screenshot 2025-01-05 222818.png",
+      technologies: [
+        "Next.js",
+        "Tailwind CSS",
+        "Framer Motion",
+        "React Query",
+        "Prisma",
+        "PostgreSQL",
+        "Python",
+        "LiveKit",
+        "Google Gemini",
+        "Deepgram",
+      ],
+      liveUrl: "https://travel97.netlify.app/",
+      githubUrl: "https://github.com/AbdelrahmanHabib24/Travel-and-Tour",
+    },
     {
       title: "Movie App",
       description:
@@ -31,15 +42,7 @@ export default function Projects() {
       liveUrl: "https://ecommerce128.netlify.app/",
       githubUrl: "https://github.com/AbdelrahmanHabib24/Ecommerce",
     },
-    {
-      title: "Travel and Tour",
-      description:
-        "Explore our Tour and Travel app for easy planning and unforgettable adventures. Crafted with Next.js and Tailwind CSS for a smooth, modern experience.",
-      image: "/Screenshot 2025-01-05 222818.png",
-      technologies: ["Next", "Tailwind", "Framer Motion"],
-      liveUrl: "https://travel97.netlify.app/",
-      githubUrl: "https://github.com/AbdelrahmanHabib24/Travel-and-Tour",
-    },
+
     {
       title: "Food Delivery",
       description:
@@ -47,11 +50,18 @@ export default function Projects() {
       image: "/Screenshot 2024-10-28 101613.png",
       technologies: ["React", "Tailwind"],
       liveUrl: "https://luminous-froyo-7c35dc.netlify.app/",
-      githubUrl: "#",
+      githubUrl: "https://github.com/AbdelrahmanHabib24/Food-Delivery",
+    },
+    {
+      title: "Car Rental Dashboard",
+      description:
+        "Built a responsive car-rental admin dashboard with React and Tailwind; uses Zustand for state management. Admins can view fleet status, add/edit vehicles and drivers, track bookings, filter by status, and see earnings & activity in real time.",
+      image: "/screenshot-car-rental-dashboard.png",
+      technologies: ["React", "Tailwind CSS", "Zustand", "React Router"],
+      liveUrl: "https://car-rental4.netlify.app/",
+      githubUrl: "https://github.com/AbdelrahmanHabib24/CarRental---Dashboard",
     },
   ];
-
-       
 
   return (
     <motion.section
@@ -59,33 +69,67 @@ export default function Projects() {
       className="py-24 bg-white dark:bg-black"
       variants={{
         hidden: { opacity: 0, y: 50 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeInOut", staggerChildren: 0.2 } },
+        visible: {
+          opacity: 1,
+          y: 0,
+          transition: {
+            duration: 0.8,
+            ease: "easeInOut",
+            staggerChildren: 0.2,
+          },
+        },
       }}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: false, amount: 0.1 }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-        <motion.div variants={{
-          hidden: { opacity: 0, y: 50 },
-          visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeInOut", staggerChildren: 0.2 } },
-        }}>
-          <motion.div className="text-center mb-16" variants={{
-            hidden: { opacity: 0, y: 20 },
-            visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeInOut" } },
-          }}>
+        <motion.div
+          variants={{
+            hidden: { opacity: 0, y: 50 },
+            visible: {
+              opacity: 1,
+              y: 0,
+              transition: {
+                duration: 0.8,
+                ease: "easeInOut",
+                staggerChildren: 0.2,
+              },
+            },
+          }}
+        >
+          <motion.div
+            className="text-center mb-16"
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.5, ease: "easeInOut" },
+              },
+            }}
+          >
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
               Featured Projects
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
-              Explore some of my recent work showcasing creativity and technical expertise.
+              Explore some of my recent work showcasing creativity and technical
+              expertise.
             </p>
           </motion.div>
           <motion.div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
             variants={{
               hidden: { opacity: 0, y: 50 },
-              visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeInOut", staggerChildren: 0.2 } },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: {
+                  duration: 0.8,
+                  ease: "easeInOut",
+                  staggerChildren: 0.2,
+                },
+              },
             }}
           >
             {projects.map((project) => (
@@ -94,7 +138,11 @@ export default function Projects() {
                 className="bg-white dark:bg-black rounded-xl shadow-md overflow-hidden relative group transition-all duration-300"
                 variants={{
                   hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeInOut" } },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.5, ease: "easeInOut" },
+                  },
                 }}
                 whileHover={{
                   scale: 1.03,
@@ -126,7 +174,11 @@ export default function Projects() {
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
-                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {project.title}
                     </a>
                   </h3>
