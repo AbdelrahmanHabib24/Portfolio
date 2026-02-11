@@ -5,6 +5,24 @@ import { ExternalLink, Github } from "lucide-react";
 export default function Projects() {
   const projects = [
     {
+      title: "Najran Health Platform",
+      description:
+        "Developed a full-stack bilingual (AR/EN) healthcare platform with advanced GSAP animations and a role-based admin dashboard for appointment and operations management.",
+      image: "/najran-health.png",
+      technologies: ["Next.js", "Supabase", "GSAP", "Tailwind CSS"],
+      liveUrl: "https://najran-health.netlify.app/",
+      githubUrl: "",
+    },
+    {
+      title: "Gazahla E-commerce Platform",
+      description:
+        "Developed a scalable e-commerce platform featuring secure authentication-based checkout, real-time inventory management, and advanced business logic including shipping rules and bundle handling.",
+      image: "/gazahla.png",
+      technologies: ["React", "Redux", "Tailwind CSS"],
+      liveUrl: "https://ghazala.mavoid.com/",
+      githubUrl: "",
+    },
+    {
       title: "Travel and Tour",
       description:
         "Explore our Tour and Travel app for easy planning and unforgettable adventures. Crafted with Next.js and Tailwind CSS for a smooth, modern experience.",
@@ -52,15 +70,16 @@ export default function Projects() {
       liveUrl: "https://luminous-froyo-7c35dc.netlify.app/",
       githubUrl: "https://github.com/AbdelrahmanHabib24/Food-Delivery",
     },
-    {
-      title: "Car Rental Dashboard",
-      description:
-        "Built a responsive car-rental admin dashboard with React and Tailwind; uses Zustand for state management. Admins can view fleet status, add/edit vehicles and drivers, track bookings, filter by status, and see earnings & activity in real time.",
-      image: "/Car-Rental.png",
-      technologies: ["React", "Tailwind CSS", "Zustand", "React Router"],
-      liveUrl: "https://car-rental4.netlify.app/",
-      githubUrl: "https://github.com/AbdelrahmanHabib24/CarRental---Dashboard",
-    },
+
+    // {
+    //   title: "Car Rental Dashboard",
+    //   description:
+    //     "Built a responsive car-rental admin dashboard with React and Tailwind; uses Zustand for state management. Admins can view fleet status, add/edit vehicles and drivers, track bookings, filter by status, and see earnings & activity in real time.",
+    //   image: "/Car-Rental.png",
+    //   technologies: ["React", "Tailwind CSS", "Zustand", "React Router"],
+    //   liveUrl: "https://car-rental4.netlify.app/",
+    //   githubUrl: "https://github.com/AbdelrahmanHabib24/CarRental---Dashboard",
+    // },
   ];
 
   return (
@@ -164,12 +183,14 @@ export default function Projects() {
                     >
                       <ExternalLink size={20} />
                     </a>
-                    <a
-                      href={project.githubUrl}
-                      className="p-3 bg-gray-800 text-white rounded-full hover:bg-gray-900 transition"
-                    >
-                      <Github size={20} />
-                    </a>
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        className="p-3 bg-gray-800 text-white rounded-full hover:bg-gray-900 transition"
+                      >
+                        <Github size={20} />
+                      </a>
+                    )}
                   </motion.div>
                 </div>
                 <div className="p-6">
