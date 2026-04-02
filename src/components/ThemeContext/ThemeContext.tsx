@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useState, useEffect, } from "react";
+import { createContext, useState, useEffect } from "react";
 
 interface ThemeContextType {
   darkMode: boolean;
@@ -11,19 +11,29 @@ export const ThemeContext = createContext<ThemeContextType>({
   toggleDarkMode: () => {},
 });
 
-
-
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(() => {
+    const stored = localStorage.getItem("theme");
+    return stored !== null ? stored === "dark" : true;
+  });
+  const toggleDarkMode = () => {
+    setDarkMode((prev) => {
+      const newTheme = !prev;
+      localStorage.setItem("theme", newTheme ? "dark" : "light");
+      return newTheme;
+    });
+  };
 
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", darkMode);
-    document.body.style.backgroundColor = darkMode ? "#000000" : "#fff";
-    localStorage.setItem("darkMode", String(darkMode));
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
   }, [darkMode]);
 
   return (
-    <ThemeContext.Provider value={{ darkMode, toggleDarkMode: () => setDarkMode(!darkMode) }}>
+    <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
       {children}
     </ThemeContext.Provider>
   );
