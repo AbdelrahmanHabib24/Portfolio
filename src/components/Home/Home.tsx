@@ -48,7 +48,7 @@ export default function Home({ scrollToSection }: HomeProps) {
   return (
     <motion.section
       id="home"
-      className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden 
+      className="relative min-h-screen flex items-center justify-center pt-32 overflow-hidden 
         bg-white dark:bg-black"
       initial="hidden"
       whileInView="visible"
