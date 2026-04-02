@@ -143,7 +143,7 @@ export default function Home({ scrollToSection }: HomeProps) {
         </motion.div>
 
         {/* Social Links */}
-        <motion.div className="flex justify-center space-x-6">
+        <motion.div className="flex justify-center space-x-6 pb-20">
           {[
             {
               href: "https://github.com/AbdelrahmanHabib24",
@@ -175,7 +175,7 @@ export default function Home({ scrollToSection }: HomeProps) {
 
         {/* Scroll Down Icon */}
         <motion.div
-          className="absolute bottom-8 right-[46%] lg:right-[48.5%] text-gray-500 dark:text-gray-300"
+          className="absolute bottom-8 inset-x-0 flex justify-center text-gray-500 dark:text-gray-300"
           animate={{ y: [0, -10, 0] }}
           transition={{ repeat: Infinity, duration: 1.5 }}
         >
