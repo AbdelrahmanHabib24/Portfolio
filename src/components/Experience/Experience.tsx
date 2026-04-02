@@ -1,35 +1,51 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
+﻿/* eslint-disable @typescript-eslint/no-require-imports */
 import { motion } from "framer-motion";
 import { Briefcase, GraduationCap } from "lucide-react";
 
 export default function Experience() {
-
   const experiences = [
     {
       type: "work",
       title: "Front End Developer",
-      company: "Eyego",
-      period: "Sep 2024 - Present",
-      description:
-        "Led frontend development for an AI-based real-time people tracking system using Next.js, Redux, and WebSockets ,Integrated AI models for live location tracking, people classification, and step estimation.",
+      company: "Mavoid — Alexandria, Egypt",
+      period: "Oct 2025 - April 2026",
+      points: [
+        "Built Gazala E-commerce & MUP property platform (React + ShadCN) with lease lifecycle (Draft → Active → Ended) and automated invoicing.",
+        "Delivered invoices/payments and maintenance center (search, filters, pagination, CRUD) using reusable shared components and role-based permissions.",
+      ],
+      icon: Briefcase,
+    },
+    {
+      type: "work",
+      title: "Frontend Developer",
+      company: "Eyego — Riyadh, Saudi Arabia",
+      period: "Sep 2024 - Sep 2025",
+      points: [
+        "Cut page load time by ~30% and architected real-time tracking with Next.js, Redux, WebSockets for instant client sync.",
+        "Built multi-floor map editor and low-latency AI voice UI (React + Konva, LiveKit + OpenAI) while hardening Axios/WebSocket reliability.",
+      ],
       icon: Briefcase,
     },
     {
       type: "InternShip",
-      title: "Web Development Using Python ",
+      title: "Web Development Using Python",
       company: "Information Technology Institute (ITI)",
       period: "May 2024 - Sep 2024",
-      description:
-        "Designed user interfaces with HTML, CSS, JavaScript, and React, while developing secure APIs and web applications using Django and Django REST Framework, emphasizing clean, documented code and API integration",
+      points: [
+        "Designed responsive UIs with HTML, CSS, JavaScript, and React.",
+        "Built secure APIs and web apps using Django and Django REST Framework with clean docs.",
+      ],
       icon: GraduationCap,
     },
     {
       type: "InternShip",
-      title: "SoftWare Development Fundamentals",
+      title: "Software Development Fundamentals",
       company: "Information Technology Institute (ITI)",
       period: "Nov 2023 - Feb 2024",
-      description:
-        "Developed programming skills in C, C++, and web technologies, building responsive UIs and web applications using HTML, CSS, JavaScript, PHP, and MySQL, while also designing flowcharts and customizing WordPress sites Full Stack.",
+      points: [
+        "Strengthened CS fundamentals with C/C++ and core web technologies.",
+        "Developed web apps with HTML, CSS, JavaScript, PHP, MySQL, and customized WordPress sites.",
+      ],
       icon: GraduationCap,
     },
   ];
@@ -144,14 +160,9 @@ export default function Experience() {
                     <h4 className="font-medium mb-3 text-cyan-600 dark:text-cyan-400">
                       {exp.company}
                     </h4>
-                    <ul className="list-disc pl-4 text-sm leading-relaxed text-gray-600 marker:text-cyan-500 dark:text-gray-300 dark:marker:text-cyan-400">
-                      {exp.description.split(". ").map((point, i) => (
-                        <li key={i}>
-                          <span className="font-medium">
-                            {point.split(" ")[0]}
-                          </span>{" "}
-                          {point.slice(point.indexOf(" ") + 1)}
-                        </li>
+                    <ul className="list-disc pl-4 text-sm leading-relaxed text-gray-600 marker:text-cyan-500 dark:text-gray-300 dark:marker:text-cyan-400 space-y-2">
+                      {exp.points.map((point, i) => (
+                        <li key={i}>{point}</li>
                       ))}
                     </ul>
                   </div>

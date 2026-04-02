@@ -15,15 +15,21 @@ import {
 export default function Skills() {
   const skills = [
     { name: "React", level: 90, icon: Spline, color: "bg-cyan-500" },
-    { name: "Redux", level: 65, icon: BrainCircuit, color: "bg-rose-500" },
-    { name: "Next.js", level: 85, icon: Layers, color: "bg-blue-500" },
-    { name: "Python", level: 80, icon: FileCode, color: "bg-emerald-500" },
-    { name: "Django", level: 75, icon: ServerCog, color: "bg-teal-600" },
-    { name: "Docker", level: 70, icon: Boxes, color: "bg-sky-500" },
-    { name: "Postgres", level: 75, icon: Database, color: "bg-indigo-500" },
-    { name: "Sql/MySql", level: 80, icon: Sigma, color: "bg-amber-500" },
-    { name: "GitHub", level: 90, icon: Github, color: "bg-gray-800" },
-    { name: "Agile", level: 90, icon: Workflow, color: "bg-teal-500" },
+    { name: "Next.js", level: 88, icon: Layers, color: "bg-blue-500" },
+    { name: "Redux", level: 85, icon: BrainCircuit, color: "bg-rose-500" },
+    { name: "React Query", level: 82, icon: Workflow, color: "bg-emerald-500" },
+    { name: "Zustand", level: 80, icon: Boxes, color: "bg-sky-500" },
+    { name: "Tailwind CSS", level: 92, icon: Sigma, color: "bg-teal-500" },
+    { name: "ShadCN UI", level: 78, icon: ServerCog, color: "bg-indigo-500" },
+    { name: "Framer Motion", level: 80, icon: Spline, color: "bg-purple-500" },
+    { name: "JavaScript (ES6+)", level: 92, icon: FileCode, color: "bg-amber-500" },
+    { name: "TypeScript", level: 88, icon: FileCode, color: "bg-emerald-600" },
+    { name: "HTML5 / CSS3", level: 94, icon: FileCode, color: "bg-orange-500" },
+    { name: "REST APIs", level: 86, icon: ServerCog, color: "bg-cyan-600" },
+    { name: "PostgreSQL", level: 80, icon: Database, color: "bg-indigo-600" },
+    { name: "MySQL", level: 78, icon: Database, color: "bg-blue-600" },
+    { name: "Docker", level: 75, icon: Boxes, color: "bg-slate-600" },
+    { name: "Git / GitHub", level: 90, icon: Github, color: "bg-gray-800" },
   ];
 
   return (
