@@ -46,9 +46,9 @@ export default function Skills() {
           opacity: 1,
           y: 0,
           transition: {
-            duration: 0.8,
-            ease: "easeInOut",
-            staggerChildren: 0.2,
+            duration: 0.4,
+            ease: "easeOut",
+            staggerChildren: 0.08,
           },
         },
       }}
