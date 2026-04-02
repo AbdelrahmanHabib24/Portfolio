@@ -2,7 +2,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import { ThemeContext } from "../ThemeContext/ThemeContext"; 
+import { ThemeContext } from "../ThemeContext/ThemeContext";
 import { Sun, Moon } from "lucide-react";
 import {
   Menu,
@@ -14,7 +14,13 @@ import {
   Mail,
 } from "lucide-react";
 
-type SectionId = "home" | "about" | "skills" | "projects" | "experience" | "contact";
+type SectionId =
+  | "home"
+  | "about"
+  | "skills"
+  | "projects"
+  | "experience"
+  | "contact";
 
 type NavbarProps = {
   activeSection: SectionId;
@@ -23,23 +29,31 @@ type NavbarProps = {
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-
-
-export default function Navbar({ activeSection, scrollToSection, isMenuOpen, setIsMenuOpen ,  }: NavbarProps) {
+export default function Navbar({
+  activeSection,
+  scrollToSection,
+  isMenuOpen,
+  setIsMenuOpen,
+}: NavbarProps) {
   const navItems = [
     { id: "home", label: "Home", icon: User, path: "/" },
     { id: "about", label: "About", icon: User, path: "/about" },
     { id: "skills", label: "Skills", icon: Code, path: "/skills" },
     { id: "projects", label: "Projects", icon: Briefcase, path: "/projects" },
-    { id: "experience", label: "Experience", icon: GraduationCap, path: "/experience" },
+    {
+      id: "experience",
+      label: "Experience",
+      icon: GraduationCap,
+      path: "/experience",
+    },
     { id: "contact", label: "Contact", icon: Mail, path: "/contact" },
   ];
 
-    const { darkMode, toggleDarkMode } = useContext(ThemeContext);
+  const { darkMode, toggleDarkMode } = useContext(ThemeContext);
 
   return (
     <motion.nav
-      className="fixed top-0 left-0 right-0 bg-white/30 dark:bg-gray-950/30 backdrop-blur-md border-b border-gray-200/30 dark:border-gray-800/30 shadow-sm z-50"
+      className="fixed top-0 left-0 right-0 bg-white/30 dark:bg-gray-950/30 backdrop-blur-md   z-50"
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
