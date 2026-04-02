@@ -39,7 +39,7 @@ export default function Navbar({ activeSection, scrollToSection, isMenuOpen, set
 
   return (
     <motion.nav
-      className="fixed top-0 left-0 right-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-sm z-50"
+      className="fixed top-0 left-0 right-0 bg-white/30 dark:bg-gray-950/30 backdrop-blur-md border-b border-gray-200/30 dark:border-gray-800/30 shadow-sm z-50"
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
