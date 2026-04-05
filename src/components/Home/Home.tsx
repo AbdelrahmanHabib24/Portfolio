@@ -172,7 +172,6 @@ export default function Home({ scrollToSection }: HomeProps) {
       // Advanced ScrollTrigger (Parallaxing Elements)
       gsap.to(imgRef.current, {
         y: -150,
-        scale: 0.9,
         scrollTrigger: {
           trigger: heroRef.current,
           start: "top top",
