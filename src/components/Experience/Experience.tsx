@@ -21,8 +21,8 @@ export default function Experience() {
       company: "Eyego — Riyadh, Saudi Arabia",
       period: "Sep 2024 - Sep 2025",
       points: [
-        "Cut page load time by ~30% and architected real-time tracking with Next.js, Redux, WebSockets for instant client sync.",
-        "Built multi-floor map editor and low-latency AI voice UI (React + Konva, LiveKit + OpenAI) while hardening Axios/WebSocket reliability.",
+        "Improved application performance by reducing page load time by ~30%, and designed a real-time tracking system using Next.js, Redux, and WebSockets for seamless client synchronization.",
+        "Developed a multi-floor map editor and a low-latency AI voice UI using React, Konva, LiveKit, and OpenAI, while enhancing the reliability of Axios and WebSocket integrations.",
       ],
       icon: Briefcase,
     },
