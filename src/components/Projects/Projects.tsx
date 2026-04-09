@@ -70,16 +70,15 @@ export default function Projects() {
       liveUrl: "https://luminous-froyo-7c35dc.netlify.app/",
       githubUrl: "https://github.com/AbdelrahmanHabib24/Food-Delivery",
     },
-
-    // {
-    //   title: "Car Rental Dashboard",
-    //   description:
-    //     "Built a responsive car-rental admin dashboard with React and Tailwind; uses Zustand for state management. Admins can view fleet status, add/edit vehicles and drivers, track bookings, filter by status, and see earnings & activity in real time.",
-    //   image: "/Car-Rental.png",
-    //   technologies: ["React", "Tailwind CSS", "Zustand", "React Router"],
-    //   liveUrl: "https://car-rental4.netlify.app/",
-    //   githubUrl: "https://github.com/AbdelrahmanHabib24/CarRental---Dashboard",
-    // },
+    {
+      title: "Car Rental Dashboard",
+      description:
+        "Built a responsive car-rental admin dashboard with React and Tailwind; uses Zustand for state management. Admins can view fleet status, add/edit vehicles and drivers, track bookings, filter by status, and see earnings & activity in real time.",
+      image: "/Car-Rental.png",
+      technologies: ["React", "Tailwind CSS", "Zustand", "React Router"],
+      liveUrl: "https://car-rental4.netlify.app/",
+      githubUrl: "https://github.com/AbdelrahmanHabib24/CarRental---Dashboard",
+    },
   ];
 
   return (
