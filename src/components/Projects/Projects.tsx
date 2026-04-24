@@ -13,15 +13,15 @@ export default function Projects() {
       liveUrl: "https://najran-health.vercel.app/",
       githubUrl: "",
     },
-    {
-      title: "Gazahla E-commerce Platform",
-      description:
-        "Developed a scalable e-commerce platform featuring secure authentication-based checkout, real-time inventory management, and advanced business logic including shipping rules and bundle handling.",
-      image: "/gazahla.png",
-      technologies: ["React", "Redux", "Tailwind CSS"],
-      liveUrl: "https://ghazala.mavoid.com/",
-      githubUrl: "",
-    },
+    // {
+    //   title: "Gazahla E-commerce Platform",
+    //   description:
+    //     "Developed a scalable e-commerce platform featuring secure authentication-based checkout, real-time inventory management, and advanced business logic including shipping rules and bundle handling.",
+    //   image: "/gazahla.png",
+    //   technologies: ["React", "Redux", "Tailwind CSS"],
+    //   liveUrl: "https://ghazala.mavoid.com/",
+    //   githubUrl: "",
+    // },
     {
       title: "Travel and Tour",
       description:
