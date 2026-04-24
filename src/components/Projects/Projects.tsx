@@ -10,7 +10,7 @@ export default function Projects() {
         "Developed a full-stack bilingual (AR/EN) healthcare platform with advanced GSAP animations and a role-based admin dashboard for appointment and operations management.",
       image: "/najran-health.png",
       technologies: ["Next.js", "Supabase", "GSAP", "Tailwind CSS"],
-      liveUrl: "https://najran-health.netlify.app/",
+      liveUrl: "https://najran-health.vercel.app/",
       githubUrl: "",
     },
     {
@@ -39,7 +39,7 @@ export default function Projects() {
         "Google Gemini",
         "Deepgram",
       ],
-      liveUrl: "https://travel97.netlify.app/",
+      liveUrl: "https://travel-and-tour-ebon.vercel.app/",
       githubUrl: "https://github.com/AbdelrahmanHabib24/Travel-and-Tour",
     },
     {
@@ -48,7 +48,7 @@ export default function Projects() {
         "A React app that provides a user-friendly interface for exploring trending TV shows and movies, submitting ratings, and ensuring secure authentication.",
       image: "/Screenshot 2025-07-28 220237.png",
       technologies: ["React", "Redux", "Tailwind ", "Aos"],
-      liveUrl: "https://movie-app897.netlify.app/",
+      liveUrl: "https://movie-app-mu-five-17.vercel.app/",
       githubUrl: "https://github.com/AbdelrahmanHabib24/MovieApp",
     },
     {
@@ -57,7 +57,7 @@ export default function Projects() {
         "An e-commerce platform built with React and Tailwind CSS featuring authentication, local storage for session management and efficient product management.",
       image: "/Screenshot 2024-10-28 095944.png",
       technologies: ["React", "Redux", "Tailwind", "Framer Motion"],
-      liveUrl: "https://ecommerce128.netlify.app/",
+      liveUrl: "https://ecommerce-nine-drab-69.vercel.app/",
       githubUrl: "https://github.com/AbdelrahmanHabib24/Ecommerce",
     },
 
@@ -67,7 +67,7 @@ export default function Projects() {
         "Developed a responsive food delivery app using React, enabling users to browse menus, place orders, and track deliveries efficiently",
       image: "/Screenshot 2024-10-28 101613.png",
       technologies: ["React", "Tailwind"],
-      liveUrl: "https://luminous-froyo-7c35dc.netlify.app/",
+      liveUrl: "https://food-delivery-seven-vert.vercel.app/",
       githubUrl: "https://github.com/AbdelrahmanHabib24/Food-Delivery",
     },
     {
@@ -76,7 +76,7 @@ export default function Projects() {
         "Built a responsive car-rental admin dashboard with React and Tailwind; uses Zustand for state management. Admins can view fleet status, add/edit vehicles and drivers, track bookings, filter by status, and see earnings & activity in real time.",
       image: "/Car-Rental.png",
       technologies: ["React", "Tailwind CSS", "Zustand", "React Router"],
-      liveUrl: "https://car-rental4.netlify.app/",
+      liveUrl: "https://car-rental-dashboard-peach.vercel.app/",
       githubUrl: "https://github.com/AbdelrahmanHabib24/CarRental---Dashboard",
     },
   ];
