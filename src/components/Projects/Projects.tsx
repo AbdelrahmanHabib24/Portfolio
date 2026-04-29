@@ -13,15 +13,15 @@ export default function Projects() {
       liveUrl: "https://najran-health.vercel.app/",
       githubUrl: "",
     },
-    // {
-    //   title: "Gazahla E-commerce Platform",
-    //   description:
-    //     "Developed a scalable e-commerce platform featuring secure authentication-based checkout, real-time inventory management, and advanced business logic including shipping rules and bundle handling.",
-    //   image: "/gazahla.png",
-    //   technologies: ["React", "Redux", "Tailwind CSS"],
-    //   liveUrl: "https://ghazala.mavoid.com/",
-    //   githubUrl: "",
-    // },
+    {
+      title: "Kalima Platform",
+      description:
+        "Developed a production-grade platform with a controlled order lifecycle system (Pending → Received → Confirmed → Returned) and KPI-based performance tracking. Solved data inconsistency and fraud issues by implementing validated state transitions, secure watermarking, and automated WhatsApp workflows with pre-filled order data.",
+      image: "/kalima.png",
+      technologies: ["React", "Tailwind CSS", "Framer Motion"],
+      liveUrl: "https://dev.kalima-edu.com/",
+      githubUrl: "",
+    },
     {
       title: "Travel and Tour",
       description:
