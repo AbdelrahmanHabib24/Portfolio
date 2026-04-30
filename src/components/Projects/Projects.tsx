@@ -17,7 +17,7 @@ export default function Projects() {
       title: "Kalima Platform",
       description:
         "Developed a production-grade platform with a controlled order lifecycle system (Pending → Received → Confirmed → Returned) and KPI-based performance tracking. Solved data inconsistency and fraud issues by implementing validated state transitions, secure watermarking, and automated WhatsApp workflows with pre-filled order data.",
-      image: "/kalima.png",
+      image: "/Screenshot 2026-04-30 121035.png",
       technologies: ["React", "Tailwind CSS", "Framer Motion"],
       liveUrl: "https://dev.kalima-edu.com/",
       githubUrl: "",
