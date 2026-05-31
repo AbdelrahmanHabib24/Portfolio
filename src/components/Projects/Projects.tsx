@@ -79,6 +79,23 @@ export default function Projects() {
       liveUrl: "https://car-rental-dashboard-peach.vercel.app/",
       githubUrl: "https://github.com/AbdelrahmanHabib24/CarRental---Dashboard",
     },
+    {
+      title: "AETO Luxury Eyewear",
+      description:
+        "A premium Shopify storefront for a luxury eyewear brand, featuring a fully custom-built theme with editorial layouts, multilingual RTL/LTR support, dynamic section architecture, advanced Theme Editor customization, Translate & Adapt integration, luxury collection experiences, cinematic campaigns, custom product sliders, and responsive mobile-first design.",
+      image: "/ateo.png",
+      technologies: [
+        "Shopify Liquid",
+        "JavaScript",
+        "CSS3",
+        "HTML5",
+        "JSON Templates",
+        "Shopify Schema",
+        "Translate & Adapt",
+      ],
+      liveUrl: "https://aetoeyewear.com/",
+      githubUrl: "",
+    },
   ];
 
   return (
