@@ -91,7 +91,6 @@ export default function Projects() {
         "HTML5",
         "JSON Templates",
         "Shopify Schema",
-        "Translate & Adapt",
       ],
       liveUrl: "https://aetoeyewear.com/",
       githubUrl: "",
