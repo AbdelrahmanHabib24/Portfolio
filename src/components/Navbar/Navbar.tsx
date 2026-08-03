@@ -16,7 +16,7 @@ type NavbarProps = {
 export default function Navbar({
   activeSection, scrollToSection, isMenuOpen, setIsMenuOpen,
 }: NavbarProps) {
-  const [scrolled, setScrolled] = useState(false);
+  const [_, setScrolled] = useState(false);
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
 
   useEffect(() => {
