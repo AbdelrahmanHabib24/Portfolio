@@ -1,321 +1,313 @@
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import { Github, Linkedin, Mail, ChevronDown } from "lucide-react";
+import { motion } from "framer-motion";
+import {
+  Github,
+  Linkedin,
+  Mail,
+  Phone,
+  ArrowUpRight,
+  MessageSquare,
+  ChevronDown,
+} from "lucide-react";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 type SectionId = "projects" | "contact";
-
 interface HomeProps {
   scrollToSection: (sectionId: SectionId) => void;
 }
 
 export default function Home({ scrollToSection }: HomeProps) {
+  /* ── Dynamic Typewriter Roles ─────────────────────── */
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
-  const [typingSpeed, setTypingSpeed] = useState(150);
-  const texts = ["a Front-End Developer"];
-  const heroRef = useRef<HTMLElement>(null);
-  const imgRef = useRef<HTMLImageElement>(null);
-  const nameRef = useRef<HTMLDivElement>(null);
-  const titlePrefixRef = useRef<HTMLSpanElement>(null);
-  const subtitleRef = useRef<HTMLHeadingElement>(null);
-  const pRef = useRef<HTMLParagraphElement>(null);
-  const buttonsRef = useRef<HTMLDivElement>(null);
-  const socialsRef = useRef<HTMLDivElement>(null);
-  const chevronRef = useRef<HTMLDivElement>(null);
+  const [typingSpeed, setTypingSpeed] = useState(100);
 
-  // Typewriter
+  const roles = [
+    "Front-End Developer",
+  ];
+
+  /* ── Magnetic CTA Button Refs ────────────────────── */
+  const primaryBtnRef = useRef<HTMLButtonElement>(null);
+  const secondaryBtnRef = useRef<HTMLAnchorElement>(null);
+
+  /* ── Typewriter Logic ────────────────────────────── */
   useEffect(() => {
-    const handleTyping = () => {
-      const currentText = texts[loopNum % texts.length];
-      setDisplayText(
-        isDeleting
-          ? currentText.substring(0, displayText.length - 1)
-          : currentText.substring(0, displayText.length + 1),
-      );
-      if (!isDeleting && displayText === currentText) {
-        setTimeout(() => setIsDeleting(true), 1000);
-      } else if (isDeleting && displayText === "") {
+    const current = roles[loopNum % roles.length];
+    const next = isDeleting
+      ? current.substring(0, displayText.length - 1)
+      : current.substring(0, displayText.length + 1);
+
+    const timer = setTimeout(() => {
+      setDisplayText(next);
+      if (!isDeleting && next === current) {
+        setTimeout(() => setIsDeleting(true), 2000);
+      } else if (isDeleting && next === "") {
         setIsDeleting(false);
-        setLoopNum(loopNum + 1);
+        setLoopNum((n) => n + 1);
       }
-      setTypingSpeed(isDeleting ? 80 : 150);
-    };
-    const timer = setTimeout(handleTyping, typingSpeed);
+      setTypingSpeed(isDeleting ? 40 : 90);
+    }, typingSpeed);
+
     return () => clearTimeout(timer);
   }, [displayText, isDeleting, loopNum, typingSpeed]);
 
-  useEffect(() => {
-    // Premium GSAP Intro Animation
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline();
+  /* ── Magnetic Button Physics ─────────────────────── */
+  const handleMagneticMouseMove = (
+    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
+  ) => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const el = e.currentTarget;
+    const r = el.getBoundingClientRect();
+    gsap.to(el, {
+      x: (e.clientX - r.left - r.width / 2) * 0.22,
+      y: (e.clientY - r.top - r.height / 2) * 0.22,
+      duration: 0.3,
+      ease: "power2.out",
+    });
+  };
 
-      // 1. Initial State
-      gsap.set(imgRef.current, {
-        scale: 0.8,
-        filter: "blur(10px)",
-        opacity: 0,
-      });
-      gsap.set(titlePrefixRef.current, { y: 20, opacity: 0 });
-      gsap.set(subtitleRef.current, { y: 20, opacity: 0 });
-      gsap.set(pRef.current, { y: 20, opacity: 0 });
-      gsap.set(buttonsRef.current, { y: 20, opacity: 0 });
-      gsap.set(socialsRef.current, { scale: 0.9, opacity: 0 });
-
-      // If we have characters in the name, set them up.
-      const nameChars = nameRef.current?.children;
-      if (nameChars) {
-        gsap.set(nameChars, { y: 50, opacity: 0, rotateX: -90 });
-      }
-
-      // 2. Animate Image In (Cinematic Focus)
-      tl.to(imgRef.current, {
-        scale: 1,
-        filter: "blur(0px)",
-        opacity: 1,
-        duration: 1.5,
-        ease: "power4.out",
-      })
-
-        // 3. Prefix "Hi I'm"
-        .to(
-          titlePrefixRef.current,
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.6,
-            ease: "power2.out",
-          },
-          "-=1",
-        )
-
-        // 4. Stagger Name Characters for a 3D Reveal
-        .to(
-          nameChars || [],
-          {
-            y: 0,
-            opacity: 1,
-            rotateX: 0,
-            stagger: 0.05,
-            duration: 0.8,
-            ease: "back.out(1.7)",
-          },
-          "-=0.8",
-        )
-
-        // 5. Subtitle & Paragraph fade up
-        .to(
-          subtitleRef.current,
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-            ease: "power3.out",
-          },
-          "-=0.6",
-        )
-        .to(
-          pRef.current,
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-            ease: "power3.out",
-          },
-          "-=0.6",
-        )
-
-        // 6. Buttons & Socials pop in
-        .to(
-          buttonsRef.current,
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.6,
-            ease: "power2.out",
-          },
-          "-=0.5",
-        )
-        .to(
-          socialsRef.current,
-          {
-            scale: 1,
-            opacity: 1,
-            duration: 0.8,
-            ease: "elastic.out(1, 0.5)",
-          },
-          "-=0.4",
-        );
-
-      // Continuous float animation for the image
-      gsap.to(imgRef.current, {
-        y: "-=15",
-        repeat: -1,
-        yoyo: true,
-        duration: 3,
-        ease: "sine.inOut",
-      });
-
-      // Chevron infinite bounce
-      gsap.to(chevronRef.current, {
-        y: 10,
-        repeat: -1,
-        yoyo: true,
-        duration: 1,
-        ease: "power1.inOut",
-      });
-
-      // Advanced ScrollTrigger (Parallaxing Elements)
-      gsap.to(imgRef.current, {
-        y: -150,
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-          invalidateOnRefresh: true,
-        },
-      });
-
-      gsap.to([titlePrefixRef.current, nameRef.current, subtitleRef.current], {
-        y: 100,
-        opacity: 0,
-        filter: "blur(5px)",
-        stagger: 0.05,
-        overwrite: "auto",
-        immediateRender: false,
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-          invalidateOnRefresh: true,
-        },
-      });
-    }, heroRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  const theName = "Abdelrahman Habib".split("");
+  const handleMagneticMouseLeave = (
+    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
+  ) => {
+    gsap.to(e.currentTarget, {
+      x: 0,
+      y: 0,
+      duration: 0.6,
+      ease: "expo.out",
+    });
+  };
 
   return (
     <section
       id="home"
-      ref={heroRef}
-      className="relative min-h-screen flex items-center justify-center pt-32 overflow-hidden bg-white dark:bg-black perspective-1000"
+      className="relative min-h-screen w-full text-slate-900 dark:text-white flex flex-col justify-center items-center overflow-hidden pt-28 pb-16 transition-colors duration-500"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 z-20 lg:px-8 text-center origin-top relative">
-        {/* Profile Image (Floating) */}
-        <div className="flex justify-center mb-6">
-          <div className="relative">
-            <div className="absolute inset-0 bg-cyan-500 rounded-full blur-2xl opacity-20"></div>
-            <img
-              ref={imgRef}
-              src="/WhatsApp Image 2025-09-02 at 13.27.26_df05d2f2.jpg"
-              alt="Abdelrahman Habib"
-              className="w-64 h-64 rounded-full object-cover object-top border-4 border-cyan-500 shadow-[0_0_40px_rgba(6,182,212,0.5)] relative z-10"
-            />
-          </div>
-        </div>
-
-        {/* Title */}
-        <h1 className="text-5xl md:text-7xl font-bold lg:mb-4 leading-tight text-gray-900 dark:text-white flex flex-col items-center">
-          <span
-            ref={titlePrefixRef}
-            className="inline-block mb-2 text-2xl md:text-4xl"
-          >
-            Hi, I'm{" "}
-          </span>
-          <br className="hidden" />
-
-          <div
-            ref={nameRef}
-            className="flex flex-wrap justify-center overflow-visible perspective-1000"
-          >
-            {theName.map((char, index) => (
-              <span
-                key={index}
-                className={`inline-block ${char === " " ? "w-4 md:w-6" : ""} bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 bg-clip-text text-transparent`}
-                style={{ backgroundSize: "200% auto" }}
-              >
-                {char}
-              </span>
-            ))}
-          </div>
-        </h1>
-
-        {/* Subtitle */}
-        <h2
-          ref={subtitleRef}
-          className="bg-gradient-to-r mb-6 mt-4 text-3xl md:text-5xl font-bold from-cyan-500 via-blue-500 to-purple-500 bg-clip-text text-transparent"
-        >
-          {displayText}
-          <span className="border-r-2 border-cyan-500 animate-pulse inline-block h-8 md:h-10 ml-1 align-middle"></span>
-        </h2>
-        {/* Buttons */}
+      {/* ── Background Star Particles ────────────────── */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 top-24 pointer-events-none opacity-30 dark:opacity-60 z-0 overflow-hidden"
+      >
         <div
-          ref={buttonsRef}
-          className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
-        >
-          <Link to="/projects">
-            <button
-              className="px-8 py-3 bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-600 text-white rounded-full font-medium shadow-[0_4px_20px_rgba(6,182,212,0.4)] hover:shadow-[0_8px_30px_rgba(6,182,212,0.6)] hover:brightness-110 transition-all duration-300 transform hover:scale-105 active:scale-95"
-              onClick={() => scrollToSection("projects")}
-            >
-              View My Work
-            </button>
-          </Link>
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(1.5px 1.5px at 15% 20%, #06b6d4, transparent), radial-gradient(1px 1px at 75% 15%, #ffffff, transparent), radial-gradient(2px 2px at 85% 65%, #3b82f6, transparent)`,
+            backgroundSize: "300px 300px",
+            animation: "star-twinkle-1 4s ease-in-out infinite",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(1px 1px at 45% 30%, #ffffff, transparent), radial-gradient(2px 2px at 60% 75%, #06b6d4, transparent)`,
+            backgroundSize: "350px 350px",
+            animation: "star-twinkle-2 6s ease-in-out infinite",
+            animationDelay: "-2s",
+          }}
+        />
+      </div>
+
+      {/* ── Center Focal Lighting Glow ────────────────── */}
+      <div
+        aria-hidden="true"
+        className="absolute top-[28%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[540px] h-[540px] rounded-full pointer-events-none opacity-35 dark:opacity-55 z-0"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(6,182,212,0.25) 0%, rgba(37,99,235,0.1) 45%, transparent 70%)",
+          filter: "blur(50px)",
+          transform: "translate3d(0,0,0)",
+        }}
+      />
+
+      {/* ── Left Social Sidebar ──────────────────────── */}
+      <aside className="hidden lg:flex fixed left-8 top-1/2 -translate-y-1/2 z-30 flex-col items-center">
+        <div className="backdrop-blur-xl bg-white/80 dark:bg-white/[0.04] border border-slate-200/80 dark:border-white/10 rounded-full px-3 py-6 flex flex-col items-center gap-6 shadow-lg dark:shadow-[0_0_30px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.1)] transition-colors duration-300">
           <a
-            href="https://wa.me/201023289634"
+            href="https://github.com/AbdelrahmanHabib24"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="GitHub"
+            className="group p-1.5 rounded-lg text-slate-500 dark:text-gray-400 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-cyan-500/10 transition-all duration-200"
           >
-            <button className="px-8 py-3 rounded-full font-medium border-2 border-cyan-500 text-cyan-600 hover:bg-cyan-50 hover:shadow-[0_4px_20px_rgba(6,182,212,0.2)] dark:border-cyan-400 dark:text-cyan-400 dark:hover:bg-cyan-900 transition-all duration-300 transform hover:scale-105 active:scale-95">
-              Contact Me{" "}
-            </button>
+            <Github
+              size={18}
+              className="transition-transform duration-200 group-hover:-translate-y-[1px]"
+            />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/abdelrahmanhabib23/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            className="group p-1.5 rounded-lg text-slate-500 dark:text-gray-400 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-cyan-500/10 transition-all duration-200"
+          >
+            <Linkedin
+              size={18}
+              className="transition-transform duration-200 group-hover:-translate-y-[1px]"
+            />
+          </a>
+          <a
+            href="mailto:abdelrahmanhabib502@gmail.com"
+            aria-label="Email"
+            className="group p-1.5 rounded-lg text-slate-500 dark:text-gray-400 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-cyan-500/10 transition-all duration-200"
+          >
+            <Mail
+              size={18}
+              className="transition-transform duration-200 group-hover:-translate-y-[1px]"
+            />
+          </a>
+          <a
+            href="tel:+201029618848"
+            aria-label="Phone"
+            className="group p-1.5 rounded-lg text-slate-500 dark:text-gray-400 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-cyan-500/10 transition-all duration-200"
+          >
+            <Phone
+              size={18}
+              className="transition-transform duration-200 group-hover:-translate-y-[1px]"
+            />
           </a>
         </div>
+      </aside>
 
-        {/* Social Links */}
-        <div ref={socialsRef} className="flex justify-center space-x-6 pb-20">
-          {[
-            {
-              href: "https://github.com/AbdelrahmanHabib24",
-              icon: <Github size={24} />,
-            },
-            {
-              href: "https://www.linkedin.com/in/abdelrahmanhabib23/",
-              icon: <Linkedin size={24} />,
-            },
-            {
-              href: "mailto:abdelrahmanhabib502@gmail.com",
-              icon: <Mail size={24} />,
-            },
-          ].map((link, i) => (
-            <a
-              key={i}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-full shadow-md transition-all duration-300 bg-white hover:shadow-[0_4px_15px_rgba(6,182,212,0.4)] hover:scale-110 hover:-rotate-12 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-900 dark:text-white"
-            >
-              {link.icon}
-            </a>
-          ))}
-        </div>
+      {/* ══════════════════════════════════════════════
+          EYE-CATCHING HERO CONTENT & PORTRAIT
+          ══════════════════════════════════════════════ */}
+      <div className="relative z-10 max-w-4xl mx-auto text-center px-4 flex flex-col items-center">
+       
 
-        {/* Scroll Down Icon */}
-        <div
-          ref={chevronRef}
-          className="absolute bottom-8 inset-x-0 flex justify-center text-gray-500 dark:text-gray-300 pointer-events-none"
+        {/* Floating Portrait with Animated Glow Arc Ring */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.88 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
+          className="relative mb-8"
         >
-          <ChevronDown size={32} />
-        </div>
+          <motion.div
+            className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 flex items-center justify-center"
+            animate={{ y: [-9, 9, -9] }}
+            transition={{
+              duration: 3.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            {/* Glowing Neon Arc Ring */}
+            <div
+              className="absolute inset-[-14px] md:inset-[-18px] rounded-full border-[2px] border-cyan-500/80 dark:border-cyan-400/90 pointer-events-none z-0 shadow-[0_0_30px_rgba(6,182,212,0.6),inset_0_0_15px_rgba(6,182,212,0.3)]"
+            />
+
+            {/* Breathing glow */}
+            <div
+              className="absolute inset-0 rounded-full pointer-events-none z-0"
+              style={{
+                background:
+                  "radial-gradient(circle, rgba(6,182,212,0.45) 0%, transparent 75%)",
+                filter: "blur(20px)",
+                animation: "hero-breathing-glow 7s ease-in-out infinite",
+              }}
+            />
+
+            {/* Portrait image */}
+            <img
+              src="/WhatsApp Image 2025-09-02 at 13.27.26_df05d2f2.jpg"
+              alt="Abdelrahman Habib"
+              className="relative z-10 w-full h-full rounded-full object-cover object-top shadow-2xl border-2 border-white/30 dark:border-cyan-400/30"
+            />
+          </motion.div>
+        </motion.div>
+
+        {/* Name Title with Kinetic Reveal */}
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.25 }}
+          className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-3 leading-tight sm:leading-none"
+        >
+          <span className="text-slate-900 dark:text-white">
+            Abdelrahman{" "}
+          </span>
+          <span className="bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(6,182,212,0.35)]">
+            Habib
+          </span>
+        </motion.h1>
+
+        {/* Dynamic Typewriter Role */}
+        <motion.h2
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.35 }}
+          className="text-xl sm:text-2xl md:text-3xl font-semibold text-slate-700 dark:text-gray-200 mb-8 flex items-center justify-center gap-2 min-h-[40px]"
+        >
+          <span className="text-cyan-500 dark:text-cyan-400 font-bold drop-shadow-[0_0_12px_rgba(6,182,212,0.5)]">
+            {displayText}
+          </span>
+          <span className="w-[2.5px] h-6 sm:h-7 bg-cyan-500 dark:bg-cyan-400 inline-block animate-pulse" />
+        </motion.h2>
+
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.45 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14"
+        >
+          <button
+            ref={primaryBtnRef}
+            onClick={() => scrollToSection("projects")}
+            onMouseMove={handleMagneticMouseMove}
+            onMouseLeave={handleMagneticMouseLeave}
+            className="group relative flex items-center gap-3 bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-600 text-white font-semibold text-sm px-7 py-3.5 rounded-full shadow-[0_4px_25px_rgba(6,182,212,0.4)] hover:shadow-[0_6px_32px_rgba(6,182,212,0.6)] transition-all duration-300 overflow-hidden"
+          >
+            <span className="relative z-10">Explore My Projects</span>
+            <div className="relative z-10 w-7 h-7 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center group-hover:bg-white group-hover:text-blue-600 transition-all duration-200">
+              <ArrowUpRight size={16} strokeWidth={2.5} />
+            </div>
+          </button>
+
+          <a
+            ref={secondaryBtnRef}
+            href="https://wa.me/201029618848"
+            target="_blank"
+            rel="noopener noreferrer"
+            onMouseMove={handleMagneticMouseMove}
+            onMouseLeave={handleMagneticMouseLeave}
+            className="group flex items-center gap-3 bg-white/80 border border-slate-200 text-slate-800 dark:bg-white/[0.04] dark:border-white/15 dark:text-white font-medium text-sm px-7 py-3.5 rounded-full hover:border-cyan-500/50 hover:bg-slate-100 dark:hover:bg-white/10 transition-all duration-200 shadow-sm dark:shadow-md"
+          >
+            <span>Let's Talk</span>
+            <div className="w-7 h-7 rounded-full border border-slate-300 dark:border-white/30 flex items-center justify-center group-hover:border-cyan-500 group-hover:text-cyan-500 dark:group-hover:border-cyan-400 dark:group-hover:text-cyan-400 transition-all duration-200">
+              <MessageSquare size={14} />
+            </div>
+          </a>
+        </motion.div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          onClick={() => scrollToSection("projects")}
+          className="relative flex flex-col items-center cursor-pointer group select-none"
+        >
+          <div
+            aria-hidden="true"
+            className="absolute -bottom-6 w-48 h-12 pointer-events-none opacity-30 dark:opacity-40"
+            style={{
+              background:
+                "radial-gradient(ellipse, rgba(6,182,212,0.45) 0%, transparent 70%)",
+              filter: "blur(15px)",
+            }}
+          />
+          <div className="relative w-6 h-10 rounded-full border-2 border-slate-300 dark:border-white/30 flex justify-center p-1.5 backdrop-blur-xs group-hover:border-cyan-400 transition-colors duration-300">
+            <div className="w-1 h-2.5 rounded-full bg-cyan-500 dark:bg-cyan-400 shadow-[0_0_8px_#00f0ff] animate-mouse-wheel-dot" />
+          </div>
+          <ChevronDown
+            size={16}
+            className="text-cyan-500 dark:text-cyan-400/80 -mt-0.5 animate-bounce group-hover:text-cyan-300 transition-colors"
+          />
+          <span className="text-[10px] tracking-[0.35em] text-slate-400 dark:text-gray-400 uppercase font-medium mt-1 group-hover:text-cyan-400 transition-colors">
+            scroll
+          </span>
+        </motion.div>
       </div>
     </section>
   );

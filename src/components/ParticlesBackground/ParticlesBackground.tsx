@@ -14,12 +14,22 @@ export default function ParticlesBackground() {
       const tailLength = size * (8 + Math.random() * 5);
       const duration = 10 + Math.random() * 10;
       const delay = Math.random() * 5;
-      const startX = 100 + Math.random() * 20; 
-      const endX = -10 - Math.random() * 20;   
-      const startY = Math.random() * 90;    
-      const endY = startY + Math.random() * 20 - 10; 
+      const startX = 100 + Math.random() * 20;
+      const endX = -10 - Math.random() * 20;
+      const startY = Math.random() * 90;
+      const endY = startY + Math.random() * 20 - 10;
 
-      return { id: i, size, tailLength, duration, delay, startX, endX, startY, endY };
+      return {
+        id: i,
+        size,
+        tailLength,
+        duration,
+        delay,
+        startX,
+        endX,
+        startY,
+        endY,
+      };
     });
   }, []);
 

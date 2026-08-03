@@ -1,26 +1,10 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { ThemeContext } from "../ThemeContext/ThemeContext";
-import { Sun, Moon } from "lucide-react";
-import {
-  Menu,
-  X,
-  User,
-  Code,
-  Briefcase,
-  GraduationCap,
-  Mail,
-} from "lucide-react";
+import { Sun, Moon, Menu, X, User, Code, Briefcase, GraduationCap, Mail } from "lucide-react";
 
-type SectionId =
-  | "home"
-  | "about"
-  | "skills"
-  | "projects"
-  | "experience"
-  | "contact";
+type SectionId = "home" | "about" | "skills" | "projects" | "experience" | "contact";
 
 type NavbarProps = {
   activeSection: SectionId;
@@ -30,166 +14,145 @@ type NavbarProps = {
 };
 
 export default function Navbar({
-  activeSection,
-  scrollToSection,
-  isMenuOpen,
-  setIsMenuOpen,
+  activeSection, scrollToSection, isMenuOpen, setIsMenuOpen,
 }: NavbarProps) {
-  const navItems = [
-    { id: "home", label: "Home", icon: User, path: "/" },
-    { id: "about", label: "About", icon: User, path: "/about" },
-    { id: "skills", label: "Skills", icon: Code, path: "/skills" },
-    { id: "projects", label: "Projects", icon: Briefcase, path: "/projects" },
-    {
-      id: "experience",
-      label: "Experience",
-      icon: GraduationCap,
-      path: "/experience",
-    },
-    { id: "contact", label: "Contact", icon: Mail, path: "/contact" },
-  ];
-
+  const [scrolled, setScrolled] = useState(false);
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const navItems = [
+    { id: "home",       label: "Home",       icon: User,          path: "/" },
+    { id: "about",      label: "About",      icon: User,          path: "/about" },
+    { id: "skills",     label: "Skills",     icon: Code,          path: "/skills" },
+    { id: "projects",   label: "Projects",   icon: Briefcase,     path: "/projects" },
+    { id: "experience", label: "Experience", icon: GraduationCap, path: "/experience" },
+    { id: "contact",    label: "Contact",    icon: Mail,          path: "/contact" },
+  ];
 
   return (
     <motion.nav
-      className="fixed top-0 left-0 right-0 bg-white/30 dark:bg-gray-950/30 backdrop-blur-md   z-50"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300   `}
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
+        <div className="flex justify-between items-center h-20">
+
+          {/* ── Logo — Abdelrahman.dev ────────────── */}
           <motion.div
             className="flex-shrink-0 cursor-pointer"
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2, type: "spring" }}
-            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            whileHover={{ scale: 1.02 }}
             onClick={() => scrollToSection("home")}
           >
-            <Link to="/">
-              <span className="text-2xl font-bold bg-gradient-to-r from-cyan-500 to-blue-600 bg-clip-text text-transparent">
-                Abdelrahman Habib
+            <Link to="/" aria-label="Home — Abdelrahman Habib">
+              <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
+                Abdelrahman <span className="text-cyan-500 dark:text-cyan-400 font-semibold">Habib</span>
               </span>
             </Link>
           </motion.div>
 
-          {/* Links */}
-          <div className="hidden md:flex items-center space-x-4">
-            <motion.div
-              className="ml-10 flex items-baseline space-x-4"
-              variants={{
-                hidden: { opacity: 0 },
-                visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
-              }}
-              initial="hidden"
-              animate="visible"
-            >
-              {navItems.map((item) => (
-                <motion.button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id as SectionId)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium relative overflow-hidden group ${
-                    activeSection === item.id
-                      ? "bg-cyan-500 text-white shadow-md"
-                      : "text-gray-700 dark:text-gray-300"
-                  }`}
-                  variants={{
-                    hidden: { opacity: 0, y: -10 },
-                    visible: { opacity: 1, y: 0 },
-                  }}
-                  whileHover={{
-                    scale: 1.07,
-                    boxShadow: "0 5px 15px rgba(0, 82, 219, 0.3)",
-                  }}
-                  whileTap={{ scale: 0.96 }}
-                >
-                  <Link to={item.path}>
-                    <span className="relative z-10">{item.label}</span>
-                    <motion.span
-                      className="absolute inset-0 bg-cyan-500/10 rounded-lg"
-                      initial={{ scaleX: 0 }}
-                      whileHover={{ scaleX: 1 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </Link>
-                </motion.button>
-              ))}
-            </motion.div>
+          {/* ── Desktop Nav ───────────────────────── */}
+          <div className="hidden md:flex items-center gap-2">
+            <div className="flex items-center gap-1 lg:gap-3">
+              {navItems.map((item) => {
+                const isActive = activeSection === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id as SectionId)}
+                    className={`relative px-3.5 py-2 text-sm font-medium transition-colors duration-200 flex flex-col items-center gap-[3px] ${
+                      isActive
+                        ? "text-slate-900 dark:text-white font-semibold"
+                        : "text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white"
+                    }`}
+                  >
+                    <Link to={item.path} className="relative z-10 block">
+                      {item.label}
+                    </Link>
 
-            {/* Toggle dark*/}
+                    {/* Active Line — centered under label text, CSS transition (no layoutId bug) */}
+                    <span
+                      className="block h-[2.5px] rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 dark:from-cyan-400 dark:to-blue-500 transition-all duration-300 origin-center shadow-[0_0_8px_rgba(6,182,212,0.7)]"
+                      style={{
+                        width: isActive ? "80%" : "0%",
+                        opacity: isActive ? 1 : 0,
+                      }}
+                    />
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Dark/Light mode capsule toggle */}
             <button
               onClick={toggleDarkMode}
-              className="ml-4 p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-cyan-500 hover:text-white transition"
-              aria-label="Toggle Dark Mode"
+              className="ml-6 p-2 rounded-full border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-white/5 backdrop-blur-md text-slate-700 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 hover:border-cyan-500/40 transition-all duration-200 flex items-center justify-center shadow-xs"
+              aria-label="Toggle theme"
             >
-              {darkMode ? <Moon size={20} /> : <Sun size={20} />}
+              {darkMode ? (
+                <Moon size={16} className="text-cyan-400 fill-cyan-400/20" />
+              ) : (
+                <Sun size={16} className="text-amber-500 fill-amber-500/20" />
+              )}
             </button>
           </div>
 
-          {/* menu button*/}
-          <motion.div
-            className="sm:hidden flex items-center"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            {/* toggle button mobile*/}
+          {/* ── Mobile Controls ───────────────────── */}
+          <div className="md:hidden flex items-center gap-2">
             <button
               onClick={toggleDarkMode}
-              className="mr-2 p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-cyan-500 hover:text-white transition"
-              aria-label="Toggle Dark Mode"
+              className="p-2 rounded-full border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-white/5 text-slate-700 dark:text-gray-300"
             >
-              {darkMode ? <Moon size={20} /> : <Sun size={20} />}
+              {darkMode ? <Moon size={18} /> : <Sun size={18} />}
             </button>
-
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:text-cyan-600 hover:bg-cyan-50 dark:hover:bg-cyan-700 transition-colors"
+              className="p-2 rounded-lg text-slate-700 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
-          </motion.div>
+          </div>
         </div>
       </div>
 
+      {/* ── Mobile Menu ───────────────────────────── */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            className="sm:hidden bg-white dark:bg-gray-900 shadow-lg origin-top"
-            initial={{ scaleY: 0, opacity: 0 }}
-            animate={{ scaleY: 1, opacity: 1 }}
-            exit={{ scaleY: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="md:hidden border-t border-slate-200 dark:border-white/10 bg-white/95 dark:bg-[#030712]/95 backdrop-blur-xl"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
           >
-            <div className="px-2 pt-2 pb-3 space-y-1">
+            <div className="px-4 py-4 space-y-1.5">
               {navItems.map((item) => {
                 const Icon = item.icon;
+                const isActive = activeSection === item.id;
                 return (
-                  <motion.button
+                  <button
                     key={item.id}
-                    onClick={() => {
-                      scrollToSection(item.id as SectionId);
-                      setIsMenuOpen(false);
-                    }}
-                    className={`flex items-center w-full px-4 py-2 rounded-lg text-base font-medium ${
-                      activeSection === item.id
-                        ? "bg-cyan-500 text-white"
-                        : "text-gray-700 dark:text-gray-300 hover:text-cyan-600 hover:bg-cyan-50 dark:hover:bg-cyan-700"
+                    onClick={() => { scrollToSection(item.id as SectionId); setIsMenuOpen(false); }}
+                    className={`flex items-center w-full px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                      isActive
+                        ? "bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20"
+                        : "text-slate-700 dark:text-gray-300 hover:bg-slate-100 dark:hover:bg-white/5"
                     }`}
-                    whileHover={{
-                      scale: 1.03,
-                      boxShadow: "0 5px 15px rgba(0, 82, 219, 0.3)",
-                    }}
-                    whileTap={{ scale: 0.98 }}
                   >
-                    <Link to={item.path} className="flex items-center w-full">
-                      <Icon size={20} className="mr-2" />
+                    <Link to={item.path} className="flex items-center w-full gap-3">
+                      <Icon size={18} className="opacity-70 flex-shrink-0" />
                       {item.label}
                     </Link>
-                  </motion.button>
+                  </button>
                 );
               })}
             </div>
