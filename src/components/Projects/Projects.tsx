@@ -23,7 +23,7 @@ const projects = [
       "Production-grade platform with a controlled order lifecycle (Pending → Received → Confirmed → Returned) and KPI-based performance tracking with secure watermarking.",
     image: "/Screenshot 2026-04-30 121035.png",
     technologies: ["React", "Tailwind CSS", "Framer Motion"],
-    liveUrl: "https://dev.kalima-edu.com/",
+    liveUrl: "https://kalima-edu.com/",
     githubUrl: "",
     featured: false,
   },
@@ -145,7 +145,7 @@ export default function Projects() {
                   alt={project.title}
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                  className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-[1.04]"
                 />
                 {/* Gradient overlay on hover */}
                 <div className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-[250ms]"
