@@ -1,6 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar/Navbar";
-import Footer from "./components/Footer/Footer";
 import Home from "./components/Home/Home";
 import About from "./components/About/About";
 import Skills from "./components/Skills/Skills";
@@ -15,7 +14,6 @@ type SectionId =
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<SectionId>("home");
-  const spotlightRef = useRef<HTMLDivElement>(null);
 
   // ── Scroll → active section using IntersectionObserver (Zero layout thrashing) ──
   const scrollToSection = (sectionId: SectionId) => {
@@ -36,7 +34,10 @@ export default function App() {
           }
         });
       },
-      { rootMargin: "-35% 0px -35% 0px" }
+      {
+        rootMargin: "-35% 0px -35% 0px",
+        threshold: 0,
+      }
     );
 
     sections.forEach((id) => {
@@ -47,29 +48,10 @@ export default function App() {
     return () => observer.disconnect();
   }, []);
 
-  // ── Mouse spotlight (Hardware accelerated GPU layer) ──
-  useEffect(() => {
-    let rafId: number;
-    const el = spotlightRef.current;
-    const onMove = (e: MouseEvent) => {
-      cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(() => {
-        if (el) {
-          el.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-        }
-      });
-    };
-    window.addEventListener("mousemove", onMove, { passive: true });
-    return () => {
-      window.removeEventListener("mousemove", onMove);
-      cancelAnimationFrame(rafId);
-    };
-  }, []);
-
   return (
     <div className="relative font-sans bg-slate-50 dark:bg-[#030712] text-slate-900 dark:text-white transition-colors duration-500 min-h-screen">
 
-      {/* ── Grain overlay — 3% opacity (GPU Accelerated Layer) ────────────── */}
+      {/* ── Grain overlay — 3% opacity ────────────── */}
       <div
         aria-hidden="true"
         className="pointer-events-none fixed inset-0 z-[1] opacity-[0.03]"
@@ -77,17 +59,6 @@ export default function App() {
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
           backgroundSize: "200px 200px",
           transform: "translate3d(0,0,0)",
-          willChange: "transform",
-        }}
-      />
-
-      {/* ── Mouse spotlight — Hardware-accelerated GPU layer ───────── */}
-      <div
-        ref={spotlightRef}
-        aria-hidden="true"
-        className="pointer-events-none fixed top-0 left-0 w-[600px] h-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full z-[2] opacity-70 dark:opacity-90"
-        style={{
-          background: "radial-gradient(circle, rgba(6,182,212,0.08) 0%, rgba(37,99,235,0.02) 45%, transparent 70%)",
           willChange: "transform",
         }}
       />
@@ -109,7 +80,7 @@ export default function App() {
         />
       </div>
 
-      {/* ── Page content (No duplicate IDs) ─────────────────────────── */}
+      {/* ── Page content ─────────────────────────── */}
       <div className="relative z-[3]">
         <Navbar
           activeSection={activeSection}
@@ -127,7 +98,6 @@ export default function App() {
           <Experience />
         </div>
         <Contact />
-        {/* <Footer /> */}
       </div>
     </div>
   );
