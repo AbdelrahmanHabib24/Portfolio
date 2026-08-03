@@ -157,8 +157,11 @@ export default function Home({ scrollToSection }: HomeProps) {
             />
           </a>
           <a
-            href="tel:+201023289634"
-            aria-label="Phone"
+            href="https://wa.me/201023289634"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="WhatsApp / Phone"
+            title="Chat on WhatsApp (+20 102 328 9634)"
             className="group p-1.5 rounded-lg text-slate-500 dark:text-gray-400 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-cyan-500/10 transition-all duration-200"
           >
             <Phone
