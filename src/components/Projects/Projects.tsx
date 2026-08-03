@@ -2,11 +2,33 @@ import { motion, type Variants } from "framer-motion";
 import { ExternalLink, Github, Star } from "lucide-react";
 
 const reveal: Variants = {
-  hidden:  { opacity: 0, y: 28, filter: "blur(4px)" },
-  visible: { opacity: 1, y: 0,  filter: "blur(0px)", transition: { duration: 0.6, ease: "easeOut" } },
+  hidden: { opacity: 0, y: 28, filter: "blur(4px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
 };
 
 const projects = [
+  {
+    title: "Taj Holding",
+    description:
+      "Built an enterprise-grade multilingual corporate platform with scalable architecture, reusable UI components, design-system driven development, and production-ready responsive experiences.",
+    image: "/taj.png",
+    technologies: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "GSAP",
+      "Supabase",
+    ],
+    liveUrl: "https://taj-holding.vercel.app/en",
+    githubUrl: "",
+    featured: true,
+  },
   {
     title: "Najran Health Platform",
     description:
@@ -27,14 +49,39 @@ const projects = [
     githubUrl: "",
     featured: false,
   },
+
   {
     title: "Travel and Tour",
     description:
       "Tour and Travel app for easy planning and unforgettable adventures — powered by an AI voice assistant built with LiveKit, Deepgram, and Google Gemini.",
     image: "/Screenshot 2025-01-05 222818.png",
-    technologies: ["Next.js", "Tailwind CSS", "React Query", "Prisma", "PostgreSQL", "LiveKit", "Google Gemini"],
+    technologies: [
+      "Next.js",
+      "Tailwind CSS",
+      "React Query",
+      "Prisma",
+      "PostgreSQL",
+      "LiveKit",
+      "Google Gemini",
+    ],
     liveUrl: "https://travel-and-tour-ebon.vercel.app/",
     githubUrl: "https://github.com/AbdelrahmanHabib24/Travel-and-Tour",
+    featured: false,
+  },
+  {
+    title: "AETO Luxury Eyewear",
+    description:
+      "Premium Shopify storefront with a fully custom theme — editorial layouts, multilingual RTL/LTR, dynamic section architecture, and cinematic campaigns.",
+    image: "/ateo.png",
+    technologies: [
+      "Shopify Liquid",
+      "JavaScript",
+      "CSS3",
+      "HTML5",
+      "Shopify Schema",
+    ],
+    liveUrl: "https://aetoeyewear.com/ar-ae",
+    githubUrl: "",
     featured: false,
   },
   {
@@ -77,16 +124,6 @@ const projects = [
     githubUrl: "https://github.com/AbdelrahmanHabib24/CarRental---Dashboard",
     featured: false,
   },
-  {
-    title: "AETO Luxury Eyewear",
-    description:
-      "Premium Shopify storefront with a fully custom theme — editorial layouts, multilingual RTL/LTR, dynamic section architecture, and cinematic campaigns.",
-    image: "/ateo.png",
-    technologies: ["Shopify Liquid", "JavaScript", "CSS3", "HTML5", "Shopify Schema"],
-    liveUrl: "https://aetoeyewear.com/ar-ae",
-    githubUrl: "",
-    featured: false,
-  },
 ];
 
 export default function Projects() {
@@ -97,17 +134,20 @@ export default function Projects() {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: false, amount: 0.05 }}
-      variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.08 } } }}
+      variants={{
+        hidden: { opacity: 0 },
+        visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
+      }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-
         {/* ── Section heading ─────────────────────── */}
         <motion.div className="text-center mb-16" variants={reveal}>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mt-2">
             Featured Projects
           </h2>
           <p className="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed mt-5">
-            Explore some of my recent work showcasing creativity and technical expertise.
+            Explore some of my recent work showcasing creativity and technical
+            expertise.
           </p>
         </motion.div>
 
@@ -125,13 +165,20 @@ export default function Projects() {
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
-              transition={{ duration: 0.45, ease: "easeOut", delay: (index % 3) * 0.08 }}
+              transition={{
+                duration: 0.45,
+                ease: "easeOut",
+                delay: (index % 3) * 0.08,
+              }}
               whileHover={{ y: -6 }}
             >
               {/* Featured ribbon */}
               {project.featured && (
-                <div className="absolute top-3 left-3 z-20 flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold text-white shadow-lg"
-                  style={{ background: "linear-gradient(135deg, #06b6d4, #8b5cf6)" }}
+                <div
+                  className="absolute top-3 left-3 z-20 flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold text-white shadow-lg"
+                  style={{
+                    background: "linear-gradient(135deg, #06b6d4, #8b5cf6)",
+                  }}
                 >
                   <Star size={9} fill="white" />
                   Featured
@@ -148,8 +195,12 @@ export default function Projects() {
                   className="w-full h-full object-contain object-top transition-transform duration-500 group-hover:scale-[1.04]"
                 />
                 {/* Gradient overlay on hover */}
-                <div className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-[250ms]"
-                  style={{ background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.2) 60%, transparent 100%)" }}
+                <div
+                  className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-[250ms]"
+                  style={{
+                    background:
+                      "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.2) 60%, transparent 100%)",
+                  }}
                 >
                   <a
                     href={project.liveUrl}
