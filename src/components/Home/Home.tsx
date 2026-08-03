@@ -157,7 +157,7 @@ export default function Home({ scrollToSection }: HomeProps) {
             />
           </a>
           <a
-            href="tel:+201029618848"
+            href="tel:+201023289634"
             aria-label="Phone"
             className="group p-1.5 rounded-lg text-slate-500 dark:text-gray-400 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-cyan-500/10 transition-all duration-200"
           >
@@ -266,7 +266,7 @@ export default function Home({ scrollToSection }: HomeProps) {
 
           <a
             ref={secondaryBtnRef}
-            href="https://wa.me/201029618848"
+            href="https://wa.me/201023289634"
             target="_blank"
             rel="noopener noreferrer"
             onMouseMove={handleMagneticMouseMove}
