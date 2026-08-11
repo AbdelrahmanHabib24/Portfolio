@@ -1,25 +1,30 @@
-import { motion, type Variants } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView, type Variants } from "framer-motion";
 import Lottie from "lottie-react";
 import programmingAnimation from "../../../Programming.json";
 import { Rocket, Briefcase, Code2 } from "lucide-react";
 
-/* Shared reveal variant — opacity + y + blur, 600ms */
+/* Shared reveal variant — opacity + y (no GPU-heavy CSS blur filter) */
 const reveal: Variants = {
-  hidden:  { opacity: 0, y: 28, filter: "blur(4px)" },
-  visible: { opacity: 1, y: 0,  filter: "blur(0px)", transition: { duration: 0.6, ease: "easeOut" } },
+  hidden:  { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
 };
 
 export default function About() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { amount: 0.15 });
+
   return (
     <motion.section
+      ref={sectionRef}
       id="about"
       className="relative py-20 lg:py-28 overflow-hidden transition-colors duration-500"
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: false, amount: 0.12 }}
+      viewport={{ once: true, amount: 0.12 }}
       variants={{
         hidden:   { opacity: 0 },
-        visible:  { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.1 } },
+        visible:  { opacity: 1, transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -37,24 +42,24 @@ export default function About() {
 
         {/* ── Grid ────────────────────────────────── */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
-          {/* Lottie Animation */}
+          {/* Lottie Animation (Paused when out of view for zero offscreen CPU load) */}
           <motion.div
             className="flex justify-center relative"
-            initial={{ opacity: 0, x: -36, scale: 0.95 }}
-            whileInView={{ opacity: 1, x: 0, scale: 1 }}
-            viewport={{ once: false, amount: 0.2 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            whileHover={{ scale: 1.02 }}
+            initial={{ opacity: 0, x: -28 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <div className="relative w-full max-w-lg flex justify-center">
               <div
-                className="absolute inset-2 rounded-3xl bg-cyan-500/20 dark:bg-cyan-400/20 blur-2xl pointer-events-none"
-                style={{ transform: "translate3d(0,0,0)", willChange: "transform" }}
+                className="absolute inset-2 rounded-3xl bg-cyan-500/15 dark:bg-cyan-400/15 blur-lg pointer-events-none"
+                style={{ transform: "translate3d(0,0,0)" }}
                 aria-hidden="true"
               />
               <Lottie
                 animationData={programmingAnimation}
                 loop
+                autoplay={isInView}
                 className="w-full h-auto max-w-lg relative z-10"
               />
             </div>
@@ -63,10 +68,10 @@ export default function About() {
           {/* Content */}
           <motion.div
             className="flex flex-col"
-            initial={{ opacity: 0, x: 36 }}
+            initial={{ opacity: 0, x: 28 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
           >
             
 

@@ -2,12 +2,11 @@ import { motion, type Variants } from "framer-motion";
 import { ExternalLink, Github, Star } from "lucide-react";
 
 const reveal: Variants = {
-  hidden: { opacity: 0, y: 28, filter: "blur(4px)" },
+  hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.6, ease: "easeOut" },
+    transition: { duration: 0.5, ease: "easeOut" },
   },
 };
 
@@ -133,7 +132,7 @@ export default function Projects() {
       className="py-24 relative overflow-hidden transition-colors duration-500"
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: false, amount: 0.05 }}
+      viewport={{ once: true, amount: 0.05 }}
       variants={{
         hidden: { opacity: 0 },
         visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
@@ -186,13 +185,13 @@ export default function Projects() {
               )}
 
               {/* Image */}
-              <div className="relative overflow-hidden h-52">
+              <div className="relative overflow-hidden h-48 sm:h-52 bg-gradient-to-b from-slate-900 via-[#070e20] to-[#030712] flex items-center justify-center  ">
                 <img
                   src={project.image}
                   alt={project.title}
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-full object-contain object-top transition-transform duration-500 group-hover:scale-[1.04]"
+                  className="w-full h-full object-fill  transition-transform duration-500 group-hover:scale-[1.03] drop-shadow-md"
                 />
                 {/* Gradient overlay on hover */}
                 <div

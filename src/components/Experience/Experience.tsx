@@ -3,8 +3,8 @@ import { motion, useScroll, useSpring, useInView, type Variants } from "framer-m
 import { Briefcase, GraduationCap } from "lucide-react";
 
 const reveal: Variants = {
-  hidden:  { opacity: 0, y: 28, filter: "blur(4px)" },
-  visible: { opacity: 1, y: 0,  filter: "blur(0px)", transition: { duration: 0.6, ease: "easeOut" } },
+  hidden:  { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
 };
 
 const experiences = [
@@ -159,7 +159,7 @@ export default function Experience() {
       className="py-24 relative overflow-hidden  transition-colors duration-500"
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: false, amount: 0.08 }}
+      viewport={{ once: true, amount: 0.08 }}
       variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.14 } } }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

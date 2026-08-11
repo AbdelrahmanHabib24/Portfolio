@@ -110,11 +110,11 @@ export default function Home({ scrollToSection }: HomeProps) {
       {/* ── Center Focal Lighting Glow ────────────────── */}
       <div
         aria-hidden="true"
-        className="absolute top-[28%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[540px] h-[540px] rounded-full pointer-events-none opacity-35 dark:opacity-55 z-0"
+        className="absolute top-[28%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] sm:w-[540px] sm:h-[540px] rounded-full pointer-events-none opacity-35 dark:opacity-55 z-0"
         style={{
           background:
             "radial-gradient(circle, rgba(6,182,212,0.25) 0%, rgba(37,99,235,0.1) 45%, transparent 70%)",
-          filter: "blur(50px)",
+          filter: "blur(30px)",
           transform: "translate3d(0,0,0)",
         }}
       />
@@ -185,18 +185,13 @@ export default function Home({ scrollToSection }: HomeProps) {
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
           className="relative mb-8"
         >
-          <motion.div
-            className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 flex items-center justify-center"
-            animate={{ y: [-9, 9, -9] }}
-            transition={{
-              duration: 3.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
+          <div
+            className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 flex items-center justify-center animate-portrait-bounce"
+            style={{ transform: "translate3d(0,0,0)" }}
           >
             {/* Glowing Neon Arc Ring */}
             <div
-              className="absolute inset-[-14px] md:inset-[-18px] rounded-full border-[2px] border-cyan-500/80 dark:border-cyan-400/90 pointer-events-none z-0 shadow-[0_0_30px_rgba(6,182,212,0.6),inset_0_0_15px_rgba(6,182,212,0.3)]"
+              className="absolute inset-[-14px] md:inset-[-18px] rounded-full border-[2px] border-cyan-500/80 dark:border-cyan-400/90 pointer-events-none z-0 shadow-[0_0_20px_rgba(6,182,212,0.5)]"
             />
 
             {/* Breathing glow */}
@@ -204,8 +199,8 @@ export default function Home({ scrollToSection }: HomeProps) {
               className="absolute inset-0 rounded-full pointer-events-none z-0"
               style={{
                 background:
-                  "radial-gradient(circle, rgba(6,182,212,0.45) 0%, transparent 75%)",
-                filter: "blur(20px)",
+                  "radial-gradient(circle, rgba(6,182,212,0.35) 0%, transparent 75%)",
+                filter: "blur(12px)",
                 animation: "hero-breathing-glow 7s ease-in-out infinite",
               }}
             />
@@ -216,7 +211,7 @@ export default function Home({ scrollToSection }: HomeProps) {
               alt="Abdelrahman Habib"
               className="relative z-10 w-full h-full rounded-full object-cover object-top shadow-2xl border-2 border-white/30 dark:border-cyan-400/30"
             />
-          </motion.div>
+          </div>
         </motion.div>
 
         {/* Name Title with Kinetic Reveal */}
