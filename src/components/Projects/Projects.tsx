@@ -18,7 +18,6 @@ const projects = [
     image: "/taj.png",
     technologies: [
       "Next.js",
-      "React",
       "TypeScript",
       "Tailwind CSS",
       "GSAP",
@@ -33,7 +32,7 @@ const projects = [
     description:
       "Full-stack bilingual (AR/EN) healthcare platform with advanced GSAP animations and a role-based admin dashboard for appointment and operations management.",
     image: "/najran-health.png",
-    technologies: ["Next.js", "Supabase", "GSAP", "Tailwind CSS"],
+    technologies: ["Next.js", "TypeScript", "Supabase", "GSAP", "Tailwind CSS"],
     liveUrl: "https://najran-health.vercel.app/",
     githubUrl: "",
     featured: true,
@@ -56,10 +55,9 @@ const projects = [
     image: "/Screenshot 2025-01-05 222818.png",
     technologies: [
       "Next.js",
-      "Tailwind CSS",
-      "React Query",
-      "Prisma",
       "PostgreSQL",
+      "Prisma",
+      "React Query",
       "LiveKit",
       "Google Gemini",
     ],
@@ -73,11 +71,11 @@ const projects = [
       "Premium Shopify storefront with a fully custom theme — editorial layouts, multilingual RTL/LTR, dynamic section architecture, and cinematic campaigns.",
     image: "/ateo.png",
     technologies: [
-      "Shopify Liquid",
+      "Shopify",
+      "Liquid",
+      "Custom Theme",
       "JavaScript",
-      "CSS3",
-      "HTML5",
-      "Shopify Schema",
+      "HTML/CSS",
     ],
     liveUrl: "https://aetoeyewear.com/ar-ae",
     githubUrl: "",
@@ -88,7 +86,7 @@ const projects = [
     description:
       "React app for exploring trending TV shows and movies with ratings submission and secure authentication.",
     image: "/Screenshot 2025-07-28 220237.png",
-    technologies: ["React", "Redux", "Tailwind CSS", "AOS"],
+    technologies: ["React", "Redux", "Tailwind CSS", "TMDB API"],
     liveUrl: "https://movie-app-mu-five-17.vercel.app/",
     githubUrl: "https://github.com/AbdelrahmanHabib24/MovieApp",
     featured: false,
@@ -108,7 +106,7 @@ const projects = [
     description:
       "Responsive food delivery app enabling users to browse menus, place orders, and track deliveries efficiently.",
     image: "/Screenshot 2024-10-28 101613.png",
-    technologies: ["React", "Tailwind CSS"],
+    technologies: ["React", "Tailwind CSS", "React Router"],
     liveUrl: "https://food-delivery-seven-vert.vercel.app/",
     githubUrl: "https://github.com/AbdelrahmanHabib24/Food-Delivery",
     featured: false,
