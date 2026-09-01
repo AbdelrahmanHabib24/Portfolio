@@ -1,10 +1,10 @@
 import { useRef } from "react";
-import { motion, useInView, type Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import Lottie from "lottie-react";
 import programmingAnimation from "../../../Programming.json";
 import { Rocket, Briefcase, Code2 } from "lucide-react";
 
-/* Shared reveal variant — opacity + y (no GPU-heavy CSS blur filter) */
+/* Shared reveal variant — opacity + y */
 const reveal: Variants = {
   hidden:  { opacity: 0, y: 24 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
@@ -12,7 +12,6 @@ const reveal: Variants = {
 
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { amount: 0.15 });
 
   return (
     <motion.section
@@ -42,7 +41,8 @@ export default function About() {
 
         {/* ── Grid ────────────────────────────────── */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
-          {/* Lottie Animation (Paused when out of view for zero offscreen CPU load) */}
+
+          {/* Lottie Animation */}
           <motion.div
             className="flex justify-center relative"
             initial={{ opacity: 0, x: -28 }}
@@ -52,14 +52,14 @@ export default function About() {
           >
             <div className="relative w-full max-w-lg flex justify-center">
               <div
-                className="absolute inset-2 rounded-3xlح blur-lg pointer-events-none"
+                className="absolute inset-2 rounded-3xl blur-lg pointer-events-none"
                 style={{ transform: "translate3d(0,0,0)" }}
                 aria-hidden="true"
               />
               <Lottie
                 animationData={programmingAnimation}
                 loop
-                autoplay={isInView}
+                autoplay
                 className="w-full h-auto max-w-lg relative z-10"
               />
             </div>
@@ -73,9 +73,7 @@ export default function About() {
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            
-
-            {/* Bullet list with progressive scroll reveal & active illumination */}
+            {/* Bullet list */}
             <ul className="mb-10 space-y-3.5 text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
               {[
                "Building scalable and high-performance web applications with React, Next.js, and TypeScript.",
@@ -99,7 +97,7 @@ export default function About() {
               ))}
             </ul>
 
-            {/* Stats Cards — Progressive Staggered Reveal */}
+            {/* Stats Cards */}
             <div className="grid grid-cols-3 gap-4">
               {[
                 { Icon: Rocket,    label: "Projects",  value: "8+" },
@@ -109,11 +107,7 @@ export default function About() {
                 <motion.div
                   key={label}
                   className="p-5 rounded-2xl bg-white/70 dark:bg-[#070e1e]/80 border border-slate-200/80 dark:border-cyan-500/20 text-center shadow-md dark:shadow-[0_4px_20px_rgba(0,0,0,0.4)] backdrop-blur-md transition-colors duration-300"
-                  style={{
-                    transform: "translate3d(0,0,0)",
-                    backfaceVisibility: "hidden",
-                    WebkitBackfaceVisibility: "hidden",
-                  }}
+                  style={{ transform: "translate3d(0,0,0)", backfaceVisibility: "hidden" }}
                   initial={{ opacity: 0, y: 18 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
