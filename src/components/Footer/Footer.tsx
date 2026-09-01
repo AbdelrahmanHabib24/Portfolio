@@ -1,57 +1,54 @@
-import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, Heart } from "lucide-react";
-
-const socials = [
-  { href: "https://github.com/AbdelrahmanHabib24",          icon: <Github   size={18} />, label: "GitHub" },
-  { href: "https://www.linkedin.com/in/abdelrahmanhabib23/", icon: <Linkedin size={18} />, label: "LinkedIn" },
-  { href: "mailto:abdelrahmanhabib502@gmail.com",           icon: <Mail     size={18} />, label: "Email" },
-];
+import { Mail, Phone } from "lucide-react";
+import { FaGithub, FaLinkedin } from "react-icons/fa6";
 
 export default function Footer() {
+  const year = new Date().getFullYear();
+  const socials = [
+    { href: "https://github.com/AbdelrahmanHabib24", label: "GitHub", Icon: FaGithub },
+    { href: "https://www.linkedin.com/in/abdelrahmanhabib23/", label: "LinkedIn", Icon: FaLinkedin },
+    { href: "mailto:abdelrahmanhabib502@gmail.com", label: "Email", Icon: Mail },
+    { href: "https://wa.me/201023289634", label: "WhatsApp", Icon: Phone },
+  ];
+
   return (
-    <motion.footer
-      className="relative"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-    >
-      {/* Gradient top line */}
-      <div className="h-px w-full" style={{ background: "linear-gradient(to right, transparent, #06b6d4 40%, #8b5cf6 60%, transparent)" }} />
+    <footer className="relative py-10 transition-colors duration-300">
+      {/* ── Refined Subtle Top Divider Line ── */}
+      <div
+        aria-hidden="true"
+        className="absolute top-0 left-0 right-0 h-[1px] w-full flex items-center justify-center pointer-events-none"
+      >
+        <div className="relative w-full max-w-sm sm:max-w-md md:max-w-lg px-4 flex items-center justify-center">
+          {/* Subtle center ambient radiance (ultra-soft, low opacity) */}
+          <div className="absolute w-2/5 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/20 dark:via-cyan-400/25 to-transparent blur-[1px]" />
+          {/* Hairline subtle gradient: transparent → subtle cyan/blue → transparent */}
+          <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/25 dark:via-cyan-400/35 to-transparent" />
+        </div>
+      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center">
-
-        {/* Brand */}
-        <p className="text-xl font-bold gradient-text mb-0.5">Abdelrahman Habib</p>
-        <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-gray-400 dark:text-gray-600 mb-6">
-          Frontend Developer
-        </p>
-
-        {/* Social icons */}
-        <div className="flex justify-center gap-4 mb-7">
-          {socials.map((item) => (
-            <motion.a
-              key={item.label}
-              href={item.href}
-              target="_blank"
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 relative z-10">
+        <div className="text-center sm:text-left">
+          <span className="font-bold text-slate-900 dark:text-white text-sm">
+            Abdelrahman <span className="text-cyan-500 dark:text-cyan-400">Habib</span>
+          </span>
+        </div>
+        <div className="flex items-center gap-3">
+          {socials.map(({ href, label, Icon }) => (
+            <a
+              key={label}
+              href={href}
+              target={label !== "Email" ? "_blank" : undefined}
               rel="noopener noreferrer"
-              aria-label={item.label}
-              className="p-2.5 rounded-full glass text-gray-500 dark:text-gray-500 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-[250ms]"
-              whileHover={{ scale: 1.12, y: -2 }}
-              transition={{ duration: 0.25 }}
+              aria-label={label}
+              className="p-2 rounded-full border border-slate-200 dark:border-white/10 text-slate-500 dark:text-gray-400 hover:text-cyan-500 dark:hover:text-cyan-400 hover:border-cyan-400/40 hover:bg-cyan-500/5 transition-all duration-200"
             >
-              {item.icon}
-            </motion.a>
+              <Icon size={15} />
+            </a>
           ))}
         </div>
-
-        {/* Copyright */}
-        <p className="text-xs text-gray-400 dark:text-gray-600 flex items-center justify-center gap-1.5">
-          © 2025 Abdelrahman Habib · Built with
-          <Heart size={11} className="text-rose-400" fill="currentColor" />
-          &amp; React
+        <p className="text-xs text-slate-400 dark:text-gray-600">
+          © {year} Abdelrahman Habib. All rights reserved.
         </p>
       </div>
-    </motion.footer>
+    </footer>
   );
 }

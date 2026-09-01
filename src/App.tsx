@@ -7,6 +7,8 @@ import Projects from "./components/Projects/Projects";
 import Experience from "./components/Experience/Experience";
 import Contact from "./components/Contact/Contact";
 import ParticlesBackground from "./components/ParticlesBackground/ParticlesBackground";
+import Footer from "./components/Footer/Footer";
+import SectionDivider from "./components/SectionDivider/SectionDivider";
 
 type SectionId =
   | "home" | "about" | "skills" | "projects" | "experience" | "contact";
@@ -49,7 +51,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="relative font-sans bg-slate-50 dark:bg-[#030712] text-slate-900 dark:text-white transition-colors duration-500 min-h-screen">
+    <div className="relative font-sans bg-slate-50 dark:bg-[#030712] text-slate-900 dark:text-white transition-colors duration-500 min-h-screen selection:bg-cyan-500/20 selection:text-cyan-400">
 
       {/* ── Grain overlay — 3% opacity (Desktop only to prevent mobile SVG re-rasterization lag) ────────────── */}
       <div
@@ -62,24 +64,13 @@ export default function App() {
         }}
       />
 
-      {/* ── Ambient blobs (dark mode only) ────────── */}
-      <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[0] overflow-hidden hidden dark:block">
-        {/* Center Ambient Glow */}
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] sm:w-[520px] sm:h-[520px] rounded-full"
-          style={{
-            background: "radial-gradient(circle, rgba(37,99,235,0.85) 0%, transparent 70%)",
-            filter: "blur(40px)",
-            opacity: 0.05,
-            animation: "aurora 20s ease infinite",
-            animationDelay: "-13s",
-            transform: "translate3d(0,0,0)",
-          }}
-        />
+      {/* ── Global Living Particle Atmosphere ────────── */}
+      <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[0] overflow-hidden">
+        <ParticlesBackground />
       </div>
 
       {/* ── Page content ─────────────────────────── */}
-      <div className="relative z-[3]">
+      <div className="relative z-[2]">
         <Navbar
           activeSection={activeSection}
           scrollToSection={scrollToSection}
@@ -88,14 +79,17 @@ export default function App() {
         />
 
         <Home scrollToSection={scrollToSection} />
+        <SectionDivider />
         <About />
+        <SectionDivider />
         <Skills />
+        <SectionDivider />
         <Projects />
-        <div className="relative">
-          <ParticlesBackground />
-          <Experience />
-        </div>
+        <SectionDivider />
+        <Experience />
+        <SectionDivider />
         <Contact />
+        <Footer />
       </div>
     </div>
   );
