@@ -52,7 +52,7 @@ export default function About() {
           >
             <div className="relative w-full max-w-lg flex justify-center">
               <div
-                className="absolute inset-2 rounded-3xl bg-cyan-500/15 dark:bg-cyan-400/15 blur-lg pointer-events-none"
+                className="absolute inset-2 rounded-3xl blur-lg pointer-events-none"
                 style={{ transform: "translate3d(0,0,0)" }}
                 aria-hidden="true"
               />
