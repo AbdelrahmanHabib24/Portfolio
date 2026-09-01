@@ -107,17 +107,7 @@ export default function Home({ scrollToSection }: HomeProps) {
         />
       </div>
 
-      {/* ── Center Focal Lighting Glow ────────────────── */}
-      <div
-        aria-hidden="true"
-        className="absolute top-[28%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] sm:w-[540px] sm:h-[540px] rounded-full pointer-events-none opacity-35 dark:opacity-55 z-0"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(6,182,212,0.25) 0%, rgba(37,99,235,0.1) 45%, transparent 70%)",
-          filter: "blur(30px)",
-          transform: "translate3d(0,0,0)",
-        }}
-      />
+
 
       {/* ── Left Social Sidebar ──────────────────────── */}
       <aside className="hidden lg:flex fixed left-8 top-1/2 -translate-y-1/2 z-30 flex-col items-center">
@@ -224,7 +214,7 @@ export default function Home({ scrollToSection }: HomeProps) {
           <span className="text-slate-900 dark:text-white">
             Abdelrahman{" "}
           </span>
-          <span className="bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(6,182,212,0.35)]">
+          <span className="bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 bg-clip-text text-transparent ">
             Habib
           </span>
         </motion.h1>
