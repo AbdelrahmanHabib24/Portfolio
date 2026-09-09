@@ -16,13 +16,7 @@ const projects = [
     description:
       "Built an enterprise-grade multilingual corporate platform with scalable architecture, reusable UI components, design-system driven development, and production-ready responsive experiences.",
     image: "/taj.png",
-    technologies: [
-      "Next.js",
-      "TypeScript",
-      "Tailwind CSS",
-      "GSAP",
-      "Supabase",
-    ],
+    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "GSAP", "Supabase"],
     liveUrl: "https://taj-holding.vercel.app/en",
     githubUrl: "",
     featured: true,
@@ -82,6 +76,16 @@ const projects = [
     featured: false,
   },
   {
+    title: "CreMedia",
+    description:
+      "Freelance corporate landing page built for a real client, featuring responsive layouts, polished UI, and smooth interactive animations.",
+    image: "/cremedia.png",
+    technologies: ["Astro", "Tailwind CSS", "Framer Motion", "GSAP"],
+    liveUrl: "https://www.cremediaeg.com/",
+    githubUrl: "",
+    featured: false,
+  },
+  {
     title: "Movie App",
     description:
       "React app for exploring trending TV shows and movies with ratings submission and secure authentication.",
@@ -89,16 +93,6 @@ const projects = [
     technologies: ["React", "Redux", "Tailwind CSS", "TMDB API"],
     liveUrl: "https://movie-app-mu-five-17.vercel.app/",
     githubUrl: "https://github.com/AbdelrahmanHabib24/MovieApp",
-    featured: false,
-  },
-  {
-    title: "E-Commerce",
-    description:
-      "E-commerce platform with authentication, local storage session management, and efficient product management.",
-    image: "/Screenshot 2024-10-28 095944.png",
-    technologies: ["React", "Redux", "Tailwind CSS", "Framer Motion"],
-    liveUrl: "https://ecommerce-nine-drab-69.vercel.app/",
-    githubUrl: "https://github.com/AbdelrahmanHabib24/Ecommerce",
     featured: false,
   },
   {
