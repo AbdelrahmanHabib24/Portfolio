@@ -17,7 +17,7 @@ const projects = [
       "Built an enterprise-grade multilingual corporate platform with scalable architecture, reusable UI components, design-system driven development, and production-ready responsive experiences.",
     image: "/taj.png",
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "GSAP", "Supabase"],
-    liveUrl: "https://taj-holding.vercel.app/en",
+    liveUrl: "https://www.tajholding.com/en",
     githubUrl: "",
     featured: true,
   },
