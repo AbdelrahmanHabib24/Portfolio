@@ -139,8 +139,6 @@ export default function Contact() {
             viewport={{ once: true, amount: 0.15 }}
             transition={{ duration: 0.5, ease: "easeOut", delay: 0.08 }}
           >
-            {/* Top edge glowing reflection ray */}
-            <div className="absolute top-0 right-10 w-40 h-[1px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_15px_#06b6d4]" />
 
             <form
               action="https://formsubmit.co/abdelrahmanhabib502@gmail.com"

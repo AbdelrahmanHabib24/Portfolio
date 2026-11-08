@@ -1,5 +1,31 @@
 import { motion, type Variants } from "framer-motion";
-import { ExternalLink, Github, Star } from "lucide-react";
+import { useState } from "react";
+import { ExternalLink, Eye, Github } from "lucide-react";
+import ProjectGallery, { type ProjectScreen } from "./ProjectGallery";
+
+const hegazyScreens: ProjectScreen[] = [
+  { src: "/projects/hegazy-motors/dashboard.png", title: "Dashboard", alt: "Hegazy Motors ERP dashboard with sales analytics and vehicle performance." },
+  { src: "/projects/hegazy-motors/sales-invoice.png", title: "Sales Invoice", alt: "Hegazy Motors sales invoice form with customer, warehouse, payment, and vehicle details." },
+  { src: "/projects/hegazy-motors/inventory.png", title: "Vehicle Inventory", alt: "Hegazy Motors vehicle inventory table and warehouse form." },
+  { src: "/projects/hegazy-motors/customers.png", title: "Customers", alt: "Hegazy Motors customer management table." },
+  { src: "/projects/hegazy-motors/invoices.png", title: "Sales & Purchase Invoices", alt: "Hegazy Motors sales and purchase invoices list with filters." },
+  { src: "/projects/hegazy-motors/account-statement.png", title: "Account Statement", alt: "Hegazy Motors account statement with balances and transactions." },
+  { src: "/projects/hegazy-motors/balance-sheet.png", title: "Balance Sheet", alt: "Hegazy Motors balance sheet report with date filters." },
+];
+
+type Project = {
+  title: string;
+  description: string;
+  image: string;
+  technologies: string[];
+  liveUrl: string;
+  githubUrl: string;
+  category?: string;
+  screens?: ProjectScreen[];
+};
+
+const actionIconClassName =
+  "p-2.5 rounded-full glass text-slate-900 hover:text-cyan-700 focus-visible:text-cyan-700 dark:text-white dark:hover:text-cyan-300 dark:focus-visible:text-cyan-300 transition-all duration-[250ms] translate-y-2 group-hover:translate-y-0 group-focus-within:translate-y-0 [@media(hover:none)]:translate-y-0";
 
 const reveal: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -10,7 +36,18 @@ const reveal: Variants = {
   },
 };
 
-const projects = [
+const projects: Project[] = [
+  {
+    title: "Hegazy Motors",
+    category: "ERP",
+    description:
+      "Frontend contributor within the team behind an automotive ERP, working on sales invoicing and vehicle inventory interfaces.",
+    image: hegazyScreens[0].src,
+    technologies: ["React", "Vite", "Tailwind CSS", "React Router", "Recharts", "React Flow"],
+    liveUrl: "https://carsdemo.greenmorph.net/login",
+    githubUrl: "",
+    screens: hegazyScreens,
+  },
   {
     title: "Taj Holding",
     description:
@@ -19,7 +56,6 @@ const projects = [
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "GSAP", "Supabase"],
     liveUrl: "https://www.tajholding.com/en",
     githubUrl: "",
-    featured: true,
   },
   {
     title: "Najran Health Platform",
@@ -29,7 +65,6 @@ const projects = [
     technologies: ["Next.js", "TypeScript", "Supabase", "GSAP", "Tailwind CSS"],
     liveUrl: "https://najran-health.vercel.app/",
     githubUrl: "",
-    featured: true,
   },
   {
     title: "Kalima Platform",
@@ -39,7 +74,6 @@ const projects = [
     technologies: ["React", "Tailwind CSS", "Framer Motion"],
     liveUrl: "https://kalima-edu.com/",
     githubUrl: "",
-    featured: false,
   },
 
   {
@@ -57,7 +91,6 @@ const projects = [
     ],
     liveUrl: "https://travel-and-tour-ebon.vercel.app/",
     githubUrl: "https://github.com/AbdelrahmanHabib24/Travel-and-Tour",
-    featured: false,
   },
   {
     title: "AETO Luxury Eyewear",
@@ -73,7 +106,6 @@ const projects = [
     ],
     liveUrl: "https://aetoeyewear.com/ar-ae",
     githubUrl: "",
-    featured: false,
   },
   {
     title: "CreMedia",
@@ -83,7 +115,6 @@ const projects = [
     technologies: ["Astro", "Tailwind CSS", "Framer Motion", "GSAP"],
     liveUrl: "https://www.cremediaeg.com/",
     githubUrl: "",
-    featured: false,
   },
   {
     title: "Movie App",
@@ -93,7 +124,6 @@ const projects = [
     technologies: ["React", "Redux", "Tailwind CSS", "TMDB API"],
     liveUrl: "https://movie-app-mu-five-17.vercel.app/",
     githubUrl: "https://github.com/AbdelrahmanHabib24/MovieApp",
-    featured: false,
   },
   {
     title: "Food Delivery",
@@ -103,7 +133,6 @@ const projects = [
     technologies: ["React", "Tailwind CSS", "React Router"],
     liveUrl: "https://food-delivery-seven-vert.vercel.app/",
     githubUrl: "https://github.com/AbdelrahmanHabib24/Food-Delivery",
-    featured: false,
   },
   {
     title: "Car Rental Dashboard",
@@ -113,12 +142,13 @@ const projects = [
     technologies: ["React", "Tailwind CSS", "Zustand", "React Router"],
     liveUrl: "https://car-rental-dashboard-peach.vercel.app/",
     githubUrl: "https://github.com/AbdelrahmanHabib24/CarRental---Dashboard",
-    featured: false,
   },
 ];
 
 export default function Projects() {
+  const [gallery, setGallery] = useState<Project | null>(null);
   return (
+    <>
     <motion.section
       id="projects"
       className="py-24 relative overflow-hidden transition-colors duration-500"
@@ -163,41 +193,39 @@ export default function Projects() {
               }}
               whileHover={{ y: -6 }}
             >
-              {/* Featured ribbon */}
-              {project.featured && (
-                <div
-                  className="absolute top-3 left-3 z-20 flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold text-white shadow-lg"
-                  style={{
-                    background: "linear-gradient(135deg, #06b6d4, #8b5cf6)",
-                  }}
-                >
-                  <Star size={9} fill="white" />
-                  Featured
-                </div>
-              )}
-
               {/* Image */}
               <div className="relative overflow-hidden h-48 sm:h-52 bg-gradient-to-b from-slate-900 via-[#070e20] to-[#030712] flex items-center justify-center  ">
                 <img
                   src={project.image}
-                  alt={project.title}
+                  alt={project.screens?.[0].alt ?? project.title}
                   loading="lazy"
                   decoding="async"
                   className="w-full h-full object-fill  transition-transform duration-500 group-hover:scale-[1.03] drop-shadow-md"
                 />
                 {/* Gradient overlay on hover */}
                 <div
-                  className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-[250ms]"
+                  className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 [@media(hover:none)]:opacity-100 transition-opacity duration-[250ms]"
                   style={{
                     background:
                       "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.2) 60%, transparent 100%)",
                   }}
                 >
+                  {project.screens && (
+                    <button
+                      type="button"
+                      onClick={() => setGallery(project)}
+                      aria-label={`View screens for ${project.title}`}
+                      className={actionIconClassName}
+                    >
+                      <Eye size={17} />
+                    </button>
+                  )}
                   <a
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2.5 rounded-full glass text-white hover:text-cyan-300 transition-all duration-[250ms] translate-y-2 group-hover:translate-y-0"
+                    aria-label={`Open ${project.title} live demo in a new tab`}
+                    className={actionIconClassName}
                   >
                     <ExternalLink size={17} />
                   </a>
@@ -206,7 +234,7 @@ export default function Projects() {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2.5 rounded-full glass text-white hover:text-gray-300 transition-all duration-[250ms] translate-y-2 group-hover:translate-y-0 [transition-delay:40ms]"
+                      className={actionIconClassName}
                     >
                       <Github size={17} />
                     </a>
@@ -216,7 +244,8 @@ export default function Projects() {
 
               {/* Content */}
               <div className="p-5">
-                <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">
+                <h3 className="flex items-center gap-2 text-base font-bold text-gray-900 dark:text-white mb-2">
+                  {project.screens ? project.title : (
                   <a
                     href={project.liveUrl}
                     target="_blank"
@@ -225,6 +254,8 @@ export default function Projects() {
                   >
                     {project.title}
                   </a>
+                  )}
+                  {project.category && <span className="inline-block rounded-full border border-cyan-100 bg-cyan-50 px-2.5 py-0.5 text-[11px] leading-none text-cyan-700 dark:border-cyan-500/20 dark:bg-cyan-500/10 dark:text-cyan-300">{project.category}</span>}
                 </h3>
                 <p className="text-gray-500 dark:text-gray-400 mb-4 text-sm leading-relaxed line-clamp-2">
                   {project.description}
@@ -245,5 +276,7 @@ export default function Projects() {
         </div>
       </div>
     </motion.section>
+    {gallery?.screens && <ProjectGallery title={gallery.title} screens={gallery.screens} onClose={() => setGallery(null)} />}
+    </>
   );
 }

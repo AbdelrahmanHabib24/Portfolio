@@ -3,13 +3,13 @@ import { motion } from "framer-motion";
 import {
   Github,
   Linkedin,
-  Mail,
-  Phone,
+  FileUser,
   ArrowUpRight,
   MessageSquare,
   ChevronDown,
 } from "lucide-react";
 import { gsap } from "gsap";
+import { BsWhatsapp } from "react-icons/bs";
 
 type SectionId = "projects" | "contact";
 interface HomeProps {
@@ -137,12 +137,15 @@ export default function Home({ scrollToSection }: HomeProps) {
             />
           </a>
           <a
-            href="mailto:abdelrahmanhabib502@gmail.com"
-            aria-label="Email"
+            href="/AbdElrahman--Habib.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View CV (PDF) in a new tab"
+            title="View CV (PDF)"
             className="group p-1.5 rounded-lg text-slate-500 dark:text-gray-400 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-cyan-500/10 transition-all duration-200"
           >
-            <Mail
-              size={18}
+            <FileUser
+              size={20}
               className="transition-transform duration-200 group-hover:-translate-y-[1px]"
             />
           </a>
@@ -154,7 +157,7 @@ export default function Home({ scrollToSection }: HomeProps) {
             title="Chat on WhatsApp (+20 102 328 9634)"
             className="group p-1.5 rounded-lg text-slate-500 dark:text-gray-400 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-cyan-500/10 transition-all duration-200"
           >
-            <Phone
+            <BsWhatsapp
               size={18}
               className="transition-transform duration-200 group-hover:-translate-y-[1px]"
             />
