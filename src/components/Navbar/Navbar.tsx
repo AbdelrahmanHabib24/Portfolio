@@ -28,7 +28,6 @@ export default function Navbar({
   const navItems = [
     { id: "home",       label: "Home",       icon: User,          path: "/" },
     { id: "about",      label: "About",      icon: User,          path: "/about" },
-    { id: "skills",     label: "Skills",     icon: Code,          path: "/skills" },
     { id: "projects",   label: "Projects",   icon: Briefcase,     path: "/projects" },
     { id: "experience", label: "Experience", icon: GraduationCap, path: "/experience" },
     { id: "contact",    label: "Contact",    icon: Mail,          path: "/contact" },
