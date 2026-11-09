@@ -178,10 +178,31 @@ body  {
 }
 
 /* ═══════════════════════════════════════════════════
+   SEAMLESS HORIZONTAL MARQUEE (CONTINUOUS AUTO-MOVING)
+   ═══════════════════════════════════════════════════ */
+@keyframes marquee-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+.animate-marquee {
+  display: flex !important;
+  flex-shrink: 0 !important;
+  will-change: transform;
+  animation: marquee-scroll 30s linear infinite !important;
+}
+
+/* ═══════════════════════════════════════════════════
    REDUCED MOTION (ACCESSIBILITY)
    ═══════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *:not(.animate-marquee):not(.animate-marquee *),
+  *:not(.animate-marquee):not(.animate-marquee *)::before,
+  *:not(.animate-marquee):not(.animate-marquee *)::after {
     animation-duration:       0.01ms !important;
     animation-iteration-count: 1     !important;
     transition-duration:      0.01ms !important;

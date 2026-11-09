@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState, type KeyboardEvent } from "react";
-import { createPortal } from "react-dom";
+import { useEffect, useRef, useState, type TouchEvent } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 export type ProjectScreen = { src: string; title: string; alt: string };
@@ -11,12 +10,19 @@ type ProjectGalleryProps = {
 };
 
 const navigationButtonClassName =
-  "flex min-h-11 min-w-11 items-center justify-center rounded-lg border border-slate-300 hover:text-cyan-600 dark:border-slate-600";
+  "flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-slate-900/60 text-slate-700 dark:text-slate-300 hover:text-cyan-500 dark:hover:text-cyan-400 hover:border-cyan-500/40 dark:hover:border-cyan-500/40 transition-all duration-200 active:scale-95 shrink-0";
 
-export default function ProjectGallery({ title, screens, onClose }: ProjectGalleryProps) {
+export default function ProjectGallery({
+  title,
+  screens,
+  onClose,
+}: ProjectGalleryProps) {
   const dialog = useRef<HTMLDialogElement>(null);
   const [index, setIndex] = useState(0);
   const screen = screens[index];
+
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
 
   useEffect(() => {
     const element = dialog.current;
@@ -32,31 +38,34 @@ export default function ProjectGallery({ title, screens, onClose }: ProjectGalle
   }, []);
 
   function navigate(direction: number) {
-    setIndex(current => (current + direction + screens.length) % screens.length);
+    setIndex(
+      (current) => (current + direction + screens.length) % screens.length,
+    );
   }
 
-  function handleKeyDown(event: KeyboardEvent<HTMLDialogElement>) {
-    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
-      event.preventDefault();
-      navigate(event.key === "ArrowLeft" ? -1 : 1);
-      return;
-    }
+ 
 
-    if (event.key !== "Tab") return;
-
-    // Keep keyboard focus inside the gallery at either end.
-    const buttons = event.currentTarget.querySelectorAll<HTMLButtonElement>("button");
-    const first = buttons[0];
-    const last = buttons[buttons.length - 1];
-    const boundary = event.shiftKey ? first : last;
-
-    if (document.activeElement === boundary) {
-      event.preventDefault();
-      (event.shiftKey ? last : first).focus();
-    }
+  function handleTouchStart(e: TouchEvent) {
+    touchStartX.current = e.touches[0].clientX;
   }
 
-  return createPortal(
+  function handleTouchMove(e: TouchEvent) {
+    touchEndX.current = e.touches[0].clientX;
+  }
+
+  function handleTouchEnd() {
+    if (touchStartX.current !== null && touchEndX.current !== null) {
+      const diff = touchStartX.current - touchEndX.current;
+      if (Math.abs(diff) > 40) {
+        navigate(diff > 0 ? 1 : -1);
+      }
+    }
+    touchStartX.current = null;
+    touchEndX.current = null;
+  }
+
+  return (
+    <>
     <dialog
       ref={dialog}
       aria-labelledby="project-gallery-title"
@@ -65,10 +74,9 @@ export default function ProjectGallery({ title, screens, onClose }: ProjectGalle
       onClick={event => {
         if (event.target === event.currentTarget) onClose();
       }}
-      onKeyDown={handleKeyDown}
       className="m-auto w-[calc(100%-1rem)] max-w-6xl max-h-[94dvh] overflow-y-auto rounded-2xl border border-slate-200 bg-white p-0 text-slate-900 shadow-2xl backdrop:bg-slate-950/85 dark:border-cyan-500/20 dark:bg-[#070e1e] dark:text-white"
     >
-      <div className="p-3 sm:p-5">
+        <div className="p-3 sm:p-5">
         <div className="flex items-start justify-between gap-3">
           <div>
             <h2 id="project-gallery-title" className="text-lg font-bold">
@@ -88,17 +96,22 @@ export default function ProjectGallery({ title, screens, onClose }: ProjectGalle
             <X size={22} />
           </button>
         </div>
-        <figure className="mt-4">
-          <div className="flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-950">
+        <figure
+          className="mt-4 select-none"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div className="flex items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-950 overflow-hidden">
             <img
               src={screen.src}
               alt={screen.alt}
-              className="block h-auto max-h-[62dvh] w-full object-"
+              className="block h-auto max-h-[62dvh] w-full object-contain"
             />
           </div>
           <figcaption className="mt-3 flex items-center justify-between gap-2" aria-live="polite" aria-atomic="true">
-            <h3 className="text-sm font-semibold">{screen.title}</h3>
-            <span className="shrink-0 text-xs text-slate-500 dark:text-slate-400">
+            <h3 className="text-sm font-semibold truncate">{screen.title}</h3>
+            <span className="shrink-0 text-xs font-medium px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
               {index + 1} / {screens.length}
             </span>
           </figcaption>
@@ -110,9 +123,11 @@ export default function ProjectGallery({ title, screens, onClose }: ProjectGalle
             aria-label="Previous screen"
             className={navigationButtonClassName}
           >
-            <ChevronLeft size={22} />
+            <ChevronLeft size={20} />
           </button>
-          <div className="flex flex-wrap justify-center gap-2">
+
+          {/* Mobile pagination: sleek interactive dots */}
+          <div className="flex sm:hidden items-center justify-center gap-1.5 flex-1 px-2">
             {screens.map((item, itemIndex) => (
               <button
                 key={item.src}
@@ -120,27 +135,51 @@ export default function ProjectGallery({ title, screens, onClose }: ProjectGalle
                 onClick={() => setIndex(itemIndex)}
                 aria-label={`Show ${item.title}`}
                 aria-pressed={itemIndex === index}
-                className={`min-h-11 min-w-11 rounded-lg border px-3 text-sm ${
+                className="py-2.5 px-1 focus:outline-none"
+              >
+                <span
+                  className={`block h-1.5 rounded-full transition-all duration-300 ${
+                    itemIndex === index
+                      ? "w-6 bg-cyan-500 shadow-[0_0_8px_rgba(6,182,212,0.6)]"
+                      : "w-1.5 bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 dark:hover:bg-slate-600"
+                  }`}
+                />
+              </button>
+            ))}
+          </div>
+
+          {/* Desktop pagination: compact numbered pills */}
+          <div className="hidden sm:flex items-center justify-center gap-1.5 flex-wrap">
+            {screens.map((item, itemIndex) => (
+              <button
+                key={item.src}
+                type="button"
+                onClick={() => setIndex(itemIndex)}
+                aria-label={`Show ${item.title}`}
+                aria-pressed={itemIndex === index}
+                className={`h-8 min-w-8 px-2.5 rounded-lg text-xs font-semibold transition-all duration-200 ${
                   itemIndex === index
-                    ? "border-cyan-600 bg-cyan-600 text-white"
-                    : "border-slate-300 dark:border-slate-600"
+                    ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-sm shadow-cyan-500/25 border border-transparent"
+                    : "border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/[0.02] text-slate-600 dark:text-slate-400 hover:border-cyan-500/40 hover:text-cyan-500 dark:hover:text-cyan-400"
                 }`}
               >
                 {itemIndex + 1}
               </button>
             ))}
           </div>
+
           <button
             type="button"
             onClick={() => navigate(1)}
             aria-label="Next screen"
             className={navigationButtonClassName}
           >
-            <ChevronRight size={22} />
+            <ChevronRight size={20} />
           </button>
         </div>
-      </div>
-    </dialog>,
-    document.body,
+        </div>
+      </dialog>
+
+      </>
   );
 }
